@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ragistration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="./../css/newUser.css">
+</head>
+<body>
+    
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+     
+        <a class="navbar-brand" href="/">
+            <img src="./../ico/logo.png" alt="" width="30" height="24" class="d-inline-block align-top">
+            THE <span style="color: darkblue;">ROOMS</span> 
+          </a>
+
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#"><i class="fas fa-info"></i> Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fa fa-gift"></i> Offers</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contactUs"><i class="fas fa-phone"></i> Contact us</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-user"></i> User 
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="/therooms/login"><i class="fas fa-key"></i> Log in</a></li>
+              <!-- <li><a class="dropdown-item" href="#"><i class="fa fa-user-plus"></i> New User</a></li> -->
+              <li><a class="dropdown-item" href="#"><i class="fa fa-pen"></i> Feedback</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+   <!-- pets  -->
+
+  <div class="pets">
+    
+  </div>
+<!-- //for the form  -->
+
+<div class="container form">
+    <div class="fromHead">
+        <h4 class="display-5">Registration <i class="fas fa-user" style="color: darkblue;"></i></h4>
+    </div>
+
+    <form class="row g-3">
+        <div class="col-md-4">
+          <label for="validationDefault01" class="form-label">First name</label>
+          <input type="text" class="form-control" id="validationDefault01"  required>
+        </div>
+        <div class="col-md-4">
+          <label for="validationDefault02" class="form-label">Last name</label>
+          <input type="text" class="form-control" id="validationDefault02"  required>
+        </div>
+        <div class="col-md-4">
+          <label for="validationDefaultUsername" class="form-label">Username</label>
+          <div class="input-group">
+            <span class="input-group-text" id="inputGroupPrepend2">@</span>
+            <input type="text" class="form-control" id="validationDefaultUsername"  aria-describedby="inputGroupPrepend2" required>
+          </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <label for="validationDefault01" class="form-label">Mobile</label>
+            <input type="number" class="form-control" id="validationDefault01" value="Mark" required>
+          </div>
+          <div class="col-md-4">
+            <label for="validationDefault01" class="form-label">Password</label>
+            <input type="password" class="form-control" id="validationDefault01" value="Mark" required>
+          </div>
+          <div class="col-md-4">
+            <label for="validationDefault01" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="validationDefault01" value="Mark" required>
+          </div>
+        <div class="col-md-6">
+          <label for="validationDefault03" class="form-label">City</label>
+          <input type="text" class="form-control" id="validationDefault03" required>
+        </div>
+        <div class="col-md-3">
+          <label for="validationDefault04" class="form-label">Gender</label>
+          <select class="form-select" id="validationDefault04" required>
+            <option  value="">Male</option>
+            <option>Female</option>
+            <option>Transgender</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="validationDefault05" class="form-label">Zip</label>
+          <input type="text" class="form-control" id="validationDefault05" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="formFile" class="form-label">User Image</label>
+            <input class="form-control" type="file" id="formFile">
+          </div>
+        <div class="col-12">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+            <label class="form-check-label" for="invalidCheck2">
+              Agree to terms and conditions
+            </label>
+          </div>
+        </div>
+        <div class="col-12">
+          <button class="btn btn-primary" type="submit">Submit form</button>
+          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+           Terms And Conditions
+          </button>
+        </div>
+      </form>
+</div>
+
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Terms & Conditions</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+      
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate eaque id quia aliquam. Aliquam aliquid ipsa veniam quia fuga itaque molestias perferendis at? In ab quidem aliquid illo corrupti a!
+            Laborum quibusdam officia laudantium consequatur iusto veritatis reiciendis laboriosam porro ullam sunt odit repellat qui soluta, ab esse voetur eligendi atque aperiam totam!
+            Laboriosam, tenetur. Repellat fugiat harum accusantium corporis magni pariatur. Cum molestias quam magnam, doloribus, incidunt error consequatur vel laboriosam dolore a assumenda nulla dignissimos dicta iusto cumque deleniti, impedit praesentium.
+            Aspernatur, sint corporis labore vero non hic. Sit ex aspernatur perferendis impedit obcaecati libero eius aliquid eum quo eaque rem expedita quidem veritatis, assumenda repellat minus voluptatum explicabo incidunt officia!
+            Molestiae aspernatur asperiores veniam doloremque necessitatibus odio, incidunt, libero perferendis sunt deleniti veritatis fugiat, natus porro reprehenderit? Ea saepe doloribus amet, neque, tempora quas sint dolores architecto nulla magni similique?
+            Sequi, dolorem. Exercitationem eaque iusto obcaecati nihil aspernatur perferendis quia quae cum omnis iste autem quibusdam officiis, rem nesciunt iure numquam recusandae facere dolore voluptas porro placeat doloremque odit? Praesentium?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Understood</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<hr>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</html>

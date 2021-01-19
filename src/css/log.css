@@ -1,0 +1,26 @@
+.form{
+    margin-top: 20px;
+    box-shadow: 0 0 10px;
+
+}
+
+.links{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    margin-top: 8px;
+    padding-top: 10px;
+}
+
+.linksss{
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.pets{
+    background-image: url(./../images/pets2.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 200px;
+}

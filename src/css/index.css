@@ -1,3 +1,13 @@
+body{
+    overflow-x: hidden;
+}
+
+.navstcky{
+
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+}
 
 .offers{
     margin-top: 10px;
@@ -9,6 +19,33 @@
 }
 
 .home{
-    background-image: url(/../images/images.jfif);
-    color: white;
+    /* background-image: url(/../images/images.jfif); */
+    color: black;
+}
+
+.homeDTL{
+  
+    padding: 5px;
+    box-shadow: 0 0 8px;
+    
+}
+
+.IRLOGO{
+    background-image: url(./../images/INDARMYLOGO.jpg);
+    background-size: cover;
+    width: 200px;
+    height: 150px;
+    border-radius: 50%;
+    box-shadow: 0 0 5px orangered,0 0 9px white, 0 0 12px green;
+
+
+}
+
+.irHelp{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+   box-shadow: 0 0 5px orangered, 0 0 10px white, 0 0 15px green;
+   background-image: linear-gradient(to right,orangered,white,green);
 }
