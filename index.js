@@ -17,7 +17,7 @@ const app = express();
 //useing middlewares
 
 app.use(morgan('dev'));
-app.use(express.static(path.join(__dirname)));//for  the statics file (image ,videos etc..)
+app.use(express.static(path.join(__dirname ,'./src/')));//for  the statics file (image ,videos etc..) in src file all the things are kept
 
 
 //port
@@ -30,7 +30,9 @@ const port = process.env.PORT || 80;
 //for home page
 app.get('/',(req,res)=>{
 
-    res.send('hello this the first site..');
+    res.setHeader('Content-Type',"text/html"); //type of response
+
+    res.status(200).sendFile(path.join(__dirname,'src/html','index.html'));//this is the home page for not aurthorised user
 
 
 })

@@ -1,0 +1,14 @@
+
+.offers{
+    margin-top: 10px;
+    height:200px ;
+    background-image: url(/../images/Top-offers.jpg);
+    background-repeat: no-repeat;
+   background-size: cover;
+   cursor: pointer;
+}
+
+.home{
+    background-image: url(/../images/images.jfif);
+    color: white;
+}
