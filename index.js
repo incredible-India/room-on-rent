@@ -10,7 +10,7 @@ const express = require('express'); //Nodejs web application framework
 const morgan = require('morgan');//for  debugging 
 const path =require('path');//specify the path
 const chalk = require('chalk'); //beautify the console window
-
+require('./database/dbsCon');//database connection code
 
 const app = express();
 
@@ -40,5 +40,5 @@ app.get('/',(req,res)=>{
 
 app.listen(port,()=>{
     
-    console.log(chalk.bgBlackBright.cyanBright(process.env.SERVER_MESSAGE,port));
+    console.log(chalk.bgYellow.cyanBright(process.env.SERVER_MESSAGE,port));
 })
