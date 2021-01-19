@@ -1,0 +1,26 @@
+{
+  "name": "room-rent",
+  "version": "1.0.0",
+  "description": "it helps to find the room ,hostel,pg etc..",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/incredible-India/room-on-rent.git"
+  },
+  "author": "Himanshu Kumar Sharma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/incredible-India/room-on-rent/issues"
+  },
+  "homepage": "https://github.com/incredible-India/room-on-rent#readme",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.12",
+    "morgan": "^1.10.0"
+  }
+}
