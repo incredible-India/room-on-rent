@@ -26,10 +26,7 @@ let newUser = new schema({
         data: Buffer,
         ContentType: String
     },
-    address: {
-        type: String,
-        required: true
-    },
+ 
 
     password:{
         type:String,
@@ -38,11 +35,29 @@ let newUser = new schema({
     cnfpassword:{
         type:String,
         required:true
+    },
+    gender:{
+        type:String,
+        required:true
     }
+    ,
+    city:{
+        type:String,
+        required:true
+    }
+    ,
+    zip:{
+        type:Number,
+        required:true
+    }
+    
 
 
 
 })
+
+
+
 
 mongoose.model('users', newUser);
 
