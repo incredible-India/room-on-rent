@@ -1,0 +1,4 @@
+1 :after sign in there should be no option for login but through url it is possible
+2: same as 1 there should be no option for new user registration
+
+solution url me kuch random sa string daalna hai 
