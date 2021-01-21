@@ -14,8 +14,7 @@ require('./database/dbsCon');//database connection code
 const UserRoute = require('./controller/user');//routing code for the users
 const CheckAurthorised = require('./authentication/auth');//it will check the user authentication
 const cookieParser = require('cookie-parser'); //cookies
-const { use } = require('./controller/user');
-
+const bcryptjs =require('bcryptjs');//bcrypt the data
 const app = express();
 
 
@@ -48,10 +47,12 @@ app.get('/',CheckAurthorised, async (req, res) => {
                 if(userData)  //if user is arthorised
                 {
 
-                    return res.render('index',{
+                    return res.status(200).render('index',{
 
                         userName : userData.fname
-                    });  
+                        ,
+                        dataforlogout : bcryptjs.hashSync('logout',10)
+                    });
 
                 }else //if user is not arthorised 
                 {

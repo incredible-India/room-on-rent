@@ -10,6 +10,7 @@ const newUserdbs = require('./../model/newUser');//this is the schema of users
 const fs = require('fs');//for file system module it help to save the image in our database
 const cookieParser = require('cookie-parser');//saving the cookies
 const bcryptjs = require('bcryptjs');//for hashing the password and comparing the password
+const checkAuth = require('./../authentication/auth');//authentication for the user
 
 
 
@@ -211,6 +212,31 @@ check('password').not().isEmpty().trim()
 })
 
 
-//now routing for log
+//now routing for logout functions
+
+router.get('/user/logout',checkAuth, async  (req,res)=>{
+
+   let UserAuth =await req.isAurthised;  //it will return either document of user or null
+
+    if(UserAuth)
+    {
+        
+        // console.log(UserAuth);
+     UserAuth.tokenSchema = []; //this logout from all devices and make token emapty in dbs
+     res.clearCookie('jwt');  //clear the cookies
+    UserAuth.save(); //save changes the data in dbs
+        return res.redirect('/'); //redirect the home page
+
+    }else
+    {
+        res.clearCookie('jwt');
+        return res.redirect('/');
+
+    }
+  
+     
+
+
+})
 
 module.exports = router; //will be import in index.js (main file)

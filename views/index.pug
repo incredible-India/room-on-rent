@@ -12,6 +12,7 @@ html(lang="en")
     style
       include ./../src/css/index.css
   body
+  -var urldataForLgout = dataforlogout
     // second bar for search
     .navstcky
       nav.navbar.navbar-expand-lg.navbar-light.bg-light
@@ -54,7 +55,7 @@ html(lang="en")
                       i.fas.fa-th-list
                       |  My Booking
                   li
-                    a.dropdown-item(href="#")
+                    a.dropdown-item(href="/therooms/user" + "/logout/?" + urldataForLgout )
                       i.fas.fa-user-times
                       |  Logout
       // search bar
