@@ -138,7 +138,7 @@ router.post('/varify/data/users', uploads.single('uimg'), [
 
          res.cookie('jwt',token); // generated token we will save in cookie and varify this latar when user will login
 
-          return res.render('index') //yeha pug wala karna hai
+         return res.redirect('/');//yeha pug wala karna hai
       
     } else {
 
@@ -189,7 +189,7 @@ check('password').not().isEmpty().trim()
 
         res.cookie("jwt",tokenlogin);
 
-        return res.render('index')//pugFile
+        return res.redirect('/');//pugFile
 
        }else
        {
@@ -209,5 +209,8 @@ check('password').not().isEmpty().trim()
 
 
 })
+
+
+//now routing for log
 
 module.exports = router; //will be import in index.js (main file)

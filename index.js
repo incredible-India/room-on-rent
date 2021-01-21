@@ -12,7 +12,7 @@ const path = require('path');//specify the path
 const chalk = require('chalk'); //beautify the console window
 require('./database/dbsCon');//database connection code
 const UserRoute = require('./controller/user');//routing code for the users
-const isAurthrised = require('./authentication/auth');//it will check the user authentication
+const CheckAurthorised = require('./authentication/auth');//it will check the user authentication
 const cookieParser = require('cookie-parser'); //cookies
 
 const app = express();
@@ -38,14 +38,23 @@ const port = process.env.PORT || 80;
 //routing code...
 
 //for home page
-app.get('/',isAurthrised, async (req, res) => {
+app.get('/',CheckAurthorised, async (req, res) => {
 
     try{
+  
+                if(await req.isAurthised)  //if user is arthorised
+                {
 
+                    return res.render('index');  
+
+                }else //if user is not arthorised 
+                {
+                    res.setHeader('Content-Type', "text/html"); //type of response
+                    // return res.render('index')
+                      return   res.status(200).sendFile(path.join(__dirname, 'src/html', 'index.html'));//this is the home page for not aurthorised user
+                }
         
-        res.setHeader('Content-Type', "text/html"); //type of response
-        // return res.render('index')
-            res.status(200).sendFile(path.join(__dirname, 'src/html', 'index.html'));//this is the home page for not aurthorised user
+       
 
     }catch {
 
