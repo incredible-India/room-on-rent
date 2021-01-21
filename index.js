@@ -14,6 +14,7 @@ require('./database/dbsCon');//database connection code
 const UserRoute = require('./controller/user');//routing code for the users
 const CheckAurthorised = require('./authentication/auth');//it will check the user authentication
 const cookieParser = require('cookie-parser'); //cookies
+const { use } = require('./controller/user');
 
 const app = express();
 
@@ -41,11 +42,16 @@ const port = process.env.PORT || 80;
 app.get('/',CheckAurthorised, async (req, res) => {
 
     try{
-  
-                if(await req.isAurthised)  //if user is arthorised
+        
+        let userData = await req.isAurthised; //this contains either userinformation or null
+
+                if(userData)  //if user is arthorised
                 {
 
-                    return res.render('index');  
+                    return res.render('index',{
+
+                        userName : userData.fname
+                    });  
 
                 }else //if user is not arthorised 
                 {
