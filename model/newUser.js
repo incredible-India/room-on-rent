@@ -74,16 +74,20 @@ newUser.methods.generateTheToken = function()
 
    this.tokenSchema = this.tokenSchema.concat( {tokendbs : tokenGenrate} );
 
+
+   this.save();
+   
    return tokenGenrate;
 
-//    this.save();
+//    
 
 
 }
 
 
+
  newUser.pre('save', function(next){
-    console.log(this);
+ 
 
  if(this.isModified('password'))
  {

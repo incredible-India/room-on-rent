@@ -31,7 +31,7 @@ body{
 }
 
 .IRLOGO{
-    background-image: url(./../images/INDARMYLOGO.jpg);
+    background-image: url(/../images/INDARMYLOGO.jpg);
     background-size: cover;
     width: 200px;
     height: 150px;

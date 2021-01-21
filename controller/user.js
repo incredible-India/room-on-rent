@@ -8,17 +8,23 @@ const bodyParser = require('body-parser');//parsing data from url
 const { check, validationResult } = require('express-validator');//it will check the form validation on server
 const newUserdbs = require('./../model/newUser');//this is the schema of users
 const fs = require('fs');//for file system module it help to save the image in our database
-const jwt = require('jsonwebtoken');//generate token and authenticate (varify) the user
 const cookieParser = require('cookie-parser');//saving the cookies
+const bcryptjs = require('bcryptjs');//for hashing the password and comparing the password
+
 
 
 
 // useing middlewaras 
-router.use(express.static(path.join(__dirname + './../')));
+router.use(express.static(path.join(__dirname , './../')));
 
 router.use(bodyParser.json());//for parsing data in json formate
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(cookieParser());
+
+
+//setting the pug file
+express().set('view engine', 'pug')
+express().set('views', path.join(__dirname,'../views/pug/'))
 
 
 
@@ -78,7 +84,7 @@ router.post('/varify/data/users', uploads.single('uimg'), [
     check('city').not().isEmpty().trim(),
     check('zip').not().isEmpty().trim(),
 
-], (req, res) => {
+], async (req, res) => {
 
     const errors = validationResult(req);
 
@@ -99,6 +105,14 @@ router.post('/varify/data/users', uploads.single('uimg'), [
 
     // first we will check the email provided by user is exist or not
 
+
+  let checkValidationEmail = await newUserdbs.findOne({email : req.body.email});
+
+  if(checkValidationEmail)
+  {
+      return res.json({message : "email alredy used"})
+  }else
+  {
 
     if (req.body.password === req.body.cnfpassword)//if password and confirm password are same then only we can save in database 
     {
@@ -124,29 +138,76 @@ router.post('/varify/data/users', uploads.single('uimg'), [
 
          res.cookie('jwt',token); // generated token we will save in cookie and varify this latar when user will login
 
-
-        SaveUserinfo.save((err, data) => {
-
-            if (err) {
-                return res.json({
-
-                    message: "saving in database error numer 1 in registration",
-
-                    error: err
-
-                })
-            }
-
-
-            res.json(data)//yeha pe pug wala lagega 
-        })
+          return res.render('index') //yeha pug wala karna hai
+      
     } else {
-        
+
         return res.send("password not matched with confirm password.")
     }
+
+  }
+
+    
 
 
 })
 
+
+//during login varify the tokens ,data and what to show after that
+
+
+router.post('/user/login',[
+
+check('username').not().isEmpty().trim(),
+check('password').not().isEmpty().trim()
+
+
+], async (req,res)=>{
+
+    let validaterror =validationResult(req); //checking the validation error
+
+    if(!validaterror.isEmpty()) //for any form validation error
+    {
+        return res.json({
+            message:"form validation error in login",
+            error :validaterror.array()
+        })
+    }
+
+
+     let loginInfo = await newUserdbs.findOne({email :req.body.username}) //it will retun null if email does not matched
+
+     if(loginInfo)
+     {
+
+       let passwordMatched = bcryptjs.compareSync(req.body.password,loginInfo.password);//comparing the password
+
+       if(passwordMatched)
+       {
+
+        const tokenlogin = loginInfo.generateTheToken();
+
+        res.cookie("jwt",tokenlogin);
+
+        return res.render('index')//pugFile
+
+       }else
+       {
+           return res.json({
+               message : " inccorect email or password "
+           })
+       }
+
+
+     }else
+     {
+         return res.json({
+             message: "email or password is incorrect"
+         })
+     }
+
+
+
+})
 
 module.exports = router; //will be import in index.js (main file)
