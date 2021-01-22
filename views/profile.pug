@@ -1,0 +1,138 @@
+extends ./base.pug
+
+block title
+    title #{title}
+
+block style
+    style
+        include ./assets/css/profile.css 
+
+block script
+  script
+    include ./assets/javascript/profile.js
+
+block content
+
+    -var allinfo = allinfo //userinformation
+
+    .spiner
+      .spinner-grow.text-primary(role="status")
+          span.sr-only Loading...
+      .spinner-grow.text-secondary(role="status")
+          span.sr-only Loading...
+      .spinner-grow.text-success(role="status")
+          span.sr-only Loading...
+      .spinner-grow.text-danger(role="status")
+          span.sr-only Loading...
+      .spinner-grow.text-warning(role="status")
+          span.sr-only Loading...
+      .spinner-grow.text-info(role="status")
+          span.sr-only Loading...
+      .spinner-grow.text-light(role="status")
+          span.sr-only Loading...
+      .spinner-grow.text-dark(role="status")
+          span.sr-only Loading...
+    .navstcky
+      nav.navbar.navbar-expand-lg.navbar-light.bg-light
+        .container-fluid
+          a.navbar-brand(href="/")
+            img.d-inline-block.align-top(src="/../ico/logo.png" alt="" width="30" height="24")
+            |             THE 
+            span(style="color: darkblue;") ROOMS
+          button.navbar-toggler(type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation")
+            span.navbar-toggler-icon
+          #navbarNavDropdown.collapse.navbar-collapse
+            ul.navbar-nav
+              li.nav-item
+                a.nav-link.active(aria-current="page" href="#")
+                  i.fas.fa-info
+                  |  Services
+              li.nav-item
+                a.nav-link(href="#")
+                  i.fa.fa-gift
+                  |  Offers
+              li.nav-item
+                a.nav-link(href="/contactUs")
+                  i.fas.fa-phone
+                  |  Contact us
+              
+              li.nav-item.dropdown
+                a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false")
+                 
+                  |  #{allinfo.fname}
+                ul.dropdown-menu(aria-labelledby="navbarDropdownMenuLink")
+                  li
+                    a.dropdown-item(href="/therooms/" + "userProfile/" + allinfo._id + "/?" + userProfile)
+                      i.fas.fa-info-circle
+                      |  Update Info
+                  li
+                    a.dropdown-item(href="/therooms/newusers")
+                      i.fas.fa-heart
+                      |  My wishlist
+                  li
+                    a.dropdown-item(href="#")
+                      i.fas.fa-th-list
+                      |  My Booking
+                  li
+                    a.dropdown-item(href="/therooms/user" + "/logout/?" + urldataForLgout )
+                      i.fas.fa-user-times
+                      |  Logout
+      // search bar
+      // Image and text
+      // Just an image
+      nav.navbar.navbar-light.bg-light
+        .container
+          .container-fluid
+            form.d-flex
+              input.form-control.me-2(type="search" placeholder="Search (location)" aria-label="Search")
+              button.btn.btn-outline-success(type="submit") Search
+
+    hr
+    .container.userinfo
+        .userimg
+            img#img.img-fluid(src="data:" + allinfo.img.ContentType + "; base64 ," + allinfo.img.data.toString('base64'), alt="User image" )
+        .Username
+            
+            h1.display-3 #{allinfo.fname + " " + allinfo.lname}  
+        .moreinfo
+            h4.display-6 
+                i.fas.fa-envelope
+                | #{" "+allinfo.email}
+    .container.otherinfos
+        .container.otherinfo
+            .container.additoninfo.bg-light
+                .mobile
+                    h6.display-6 Mobile
+                .mobile
+                    h6.display-6 #{allinfo.mobile}
+            .container.additoninfo
+                .mobile
+                    h6.display-6 Gender
+                .mobile
+                    h6.display-6 #{allinfo.gender}
+            .container.additoninfo.bg-light
+                .mobile
+                    h6.display-6 City
+                .mobile
+                    h6.display-6 #{allinfo.city}
+            .container.additoninfo
+                .mobile
+                    h6.display-6 Zip
+                .mobile
+                    h6.display-6 #{allinfo.zip}
+    .container.buttons
+        button.btn.btn-primary Edit Information
+        button.btn.btn-danger Log out
+
+    .container
+        marquee(behavior="scroll", direction="left")
+            p This much informations are not sufficient ,further informations may be asked to you during bookin of rooms/hostels/flat/etc.
+
+
+
+
+
+        
+       
+
+        

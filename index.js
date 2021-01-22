@@ -52,6 +52,14 @@ app.get('/',CheckAurthorised, async (req, res) => {
                         userName : userData.fname
                         ,
                         dataforlogout : bcryptjs.hashSync('logout',10)
+                        ,
+                        ContentType :  userData.img.ContentType
+                        ,
+                        UimgData : userData.img.data,
+
+                        userOptionlaData : bcryptjs.hashSync("data",10)
+                        ,
+                        id : userData._id
                     });
 
                 }else //if user is not arthorised 

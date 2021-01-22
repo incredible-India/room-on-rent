@@ -1,0 +1,62 @@
+
+.spiner{
+width: 100%;
+height: 100vh;
+position: fixed;
+z-index: 9999;
+background : #fff no-repeat center;
+display: flex;
+justify-content: center;
+align-items: center;
+
+}
+
+#img{
+    border-radius: 50%;
+    width: 300px;
+    height: 300px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.Username{
+    text-transform: uppercase;
+}
+.fa-envelope{
+    color: darkblue;
+}
+
+
+.otherinfos{
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.additoninfo{
+
+    text-transform: capitalize;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-start: 1;
+    grid-column-end: 2;
+
+}
+
+p {
+    color: red;
+}
+
+.buttons{
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    
+
+}
+
+button{
+    margin-top: 10px;
+}

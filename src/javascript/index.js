@@ -34,3 +34,8 @@ $('.responsive').slick({
       // instead of a settings object
     ]
   });
+
+
+  function stopLoad(){
+    document.getElementsByClassName('spiner')[0].style.display = "none";
+  }
