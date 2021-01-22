@@ -1,0 +1,35 @@
+
+    
+.spiner{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    z-index: 9999;
+    background : #fff no-repeat center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    }
+.img-fluid{
+    width: 200px;
+    height: 200px;
+}
+
+.feed{
+    margin-top: 10px;
+    padding: 5px;
+}
+
+ form{
+    margin-top: 18px;
+}
+
+button {
+    margin-top: 8px;
+    margin-left: 5px;
+}
+
+textarea{
+    margin-top: 8px;
+}

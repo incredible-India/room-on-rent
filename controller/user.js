@@ -246,6 +246,7 @@ router.get('/userProfile/:id',checkAuth ,async (req,res) =>{
     }
     else
     {
+        res.setHeader("Content-Type","text/html");//type of response
         return res.status(200).redirect('/therooms/login')
     }
 
@@ -253,6 +254,25 @@ router.get('/userProfile/:id',checkAuth ,async (req,res) =>{
 
      
 
+
+
+})
+
+//for the feedback
+
+router.get('/user/feedback',checkAuth,async(req,res)=>{
+
+    let UserAuth = await req.isAurthised;  //it will return either document of user or null
+    res.setHeader("Content-Type","text/html");//type of response
+    if(UserAuth)//if user is varified
+    {
+        return res.status(200).render('feedback',{
+            allinfo : UserAuth
+        });//feedback form
+    }
+// if user is not aurthorised we will send login page 
+
+    return res.status(200).redirect('/therooms/login')
 
 
 })
