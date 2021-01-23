@@ -135,13 +135,35 @@ block content
                       h6.display-6 No
     .container.buttons
         button.btn.btn-primary Edit Information
-        button.btn.btn-success(onclick = "location.href = '/therooms/user/newregistration'") Register My Home
+        if (allinfo.service)
+          button.btn.btn-success(type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop")
+            | My Registred Home
+        else 
+          button.btn.btn-success(type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop")
+            |  Register My Home
+
         button.btn.btn-danger Log out
  
     .container
         marquee(behavior="scroll", direction="left")
             p This much informations are not sufficient ,further informations may be asked to you during bookin of rooms/hostels/flat/etc.
 
+    
+    // Modal
+    #staticBackdrop.modal.fade(data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true")
+      .modal-dialog
+        .modal-content
+          .modal-header
+            h5#staticBackdropLabel.modal-title
+              i.fas.fa-key  Password
+            button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+          .modal-body
+            form(action="/therooms/varification/user", method="post")
+              input.form-control(type="password" placeholder="password" required name="password")
+              
+              .modal-footer
+                button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Close
+                button.btn.btn-primary(value="submit") Register
 
 
 

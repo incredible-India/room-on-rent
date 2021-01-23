@@ -282,18 +282,49 @@ router.get('/user/feedback',checkAuth,async(req,res)=>{
 
 router.get('/user/newregistration',checkAuth,async (req,res)=>{
 
-  let isAurthorised = await await req.isAurthised;
+  let isAurthorised = await req.isAurthised;  //again we will check that the user is aurthorised or not
 
   if(isAurthorised)
   {
-      return res.send("soon we will provide this service");
+      return res.redirect('/therooms/roomsregistration/applicationform/')//later we will redirect it on the form of registration for home this router code is definr in room.js
   }else
   {
-      return res.status(200).redirect('/therooms/login');
+      return res.status(200).redirect('/therooms/login');//if user is not aurthorised we will send the login form
   }
 
 
 })
 
+
+//for the password varification code during registration of home
+
+router.post('/varification/user',checkAuth,async (req,res)=>{
+
+
+    let userauth = await req.isAurthised;
+
+ 
+
+    if(userauth)
+    {
+        if(await bcryptjs.compareSync(req.body.password,userauth.password))//we will varify the password
+        {
+            res.status(200).redirect('/therooms/user/newregistration');//now for authentication above code 
+        }else
+        {
+            return res.json({
+                message : "incorrect password"
+            })
+        }
+       
+
+    }else
+    {
+        return res.status(200).redirect('/therooms/login');//if user is not aurthorised we will send the login form
+
+    }
+
+
+})
 
 module.exports = router; //will be import in index.js (main file)

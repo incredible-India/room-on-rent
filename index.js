@@ -15,6 +15,7 @@ const UserRoute = require('./controller/user');//routing code for the users
 const CheckAurthorised = require('./authentication/auth');//it will check the user authentication
 const cookieParser = require('cookie-parser'); //cookies
 const bcryptjs =require('bcryptjs');//bcrypt the data
+const rooms =require('./controller/rooms');//for rooms and the registration
 const app = express();
 
 
@@ -28,6 +29,7 @@ app.set('views',path.join(__dirname,"./views/"))
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, './src/')));//for  the statics file (image ,videos etc..) in src file all the things are kept
 app.use('/therooms', UserRoute); //for the routing code of users
+app.use('/therooms/roomsregistration', rooms);//routing code for the room registration
 app.use(cookieParser()); //using middleware for the cookies 
 
 //port
