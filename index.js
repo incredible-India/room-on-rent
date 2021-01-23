@@ -89,6 +89,18 @@ app.get('/contactUs', (req, res) => {
 
 })
 
+//for the services page
+
+app.get('/therooms/services',(req,res)=>{
+
+
+    res.setHeader('Content-Type', "text/html"); //type of response
+
+    res.status(404).sendFile(path.join(__dirname, 'src/html/', "service.html"))
+
+
+})
+
 //listenig the port
 
 app.listen(port, () => {

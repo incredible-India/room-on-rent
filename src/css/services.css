@@ -1,0 +1,88 @@
+.navstcky{
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+}
+@font-face {
+    font-family: monoton;
+
+    src: url(./../fonts/monoton.ttf);
+}
+
+*{
+    box-sizing: border-box;
+}
+
+.global{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: monoton;
+   
+}
+
+.globalS{
+    color: darkblue;
+}
+
+
+.mainbox{
+    display: flex;
+
+    flex-direction: column;
+    margin-top: 8px;
+    box-shadow: 0 0 5px , 0 0 8px ;
+    height: 500px;
+    justify-content: space-evenly;
+}
+
+.firstbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 18px;
+}
+
+.secondbox{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 18px;
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: 0.25s;border: none;
+    padding: 10px;
+   
+}
+
+
+.ico{
+    font-size: 30px;
+ 
+}
+
+
+.card:hover{
+
+    box-shadow: 0 0 5px , 0 0 8px;
+    cursor: pointer;
+
+
+
+
+}
+
+a{
+
+    text-decoration: none;
+}
+
+h4{
+    color: black;
+}

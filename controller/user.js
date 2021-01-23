@@ -278,4 +278,22 @@ router.get('/user/feedback',checkAuth,async(req,res)=>{
 })
 
 
+//for the home registration of user
+
+router.get('/user/newregistration',checkAuth,async (req,res)=>{
+
+  let isAurthorised = await await req.isAurthised;
+
+  if(isAurthorised)
+  {
+      return res.send("soon we will provide this service");
+  }else
+  {
+      return res.status(200).redirect('/therooms/login');
+  }
+
+
+})
+
+
 module.exports = router; //will be import in index.js (main file)

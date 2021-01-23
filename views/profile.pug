@@ -44,7 +44,7 @@ block content
           #navbarNavDropdown.collapse.navbar-collapse
             ul.navbar-nav
               li.nav-item
-                a.nav-link.active(aria-current="page" href="#")
+                a.nav-link.active(aria-current="page" href="/therooms/services")
                   i.fas.fa-info
                   |  Services
               li.nav-item
@@ -124,10 +124,20 @@ block content
                     h6.display-6 Zip
                 .mobile
                     h6.display-6 #{allinfo.zip}
+            .container.additoninfo.bg-light
+                .mobile
+                    h6.display-6 Room Services
+                .mobile
+                    if (allinfo.service)
+
+                      h6.display-6 Yes
+                    else
+                      h6.display-6 No
     .container.buttons
         button.btn.btn-primary Edit Information
+        button.btn.btn-success(onclick = "location.href = '/therooms/user/newregistration'") Register My Home
         button.btn.btn-danger Log out
-
+ 
     .container
         marquee(behavior="scroll", direction="left")
             p This much informations are not sufficient ,further informations may be asked to you during bookin of rooms/hostels/flat/etc.

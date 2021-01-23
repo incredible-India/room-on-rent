@@ -53,6 +53,11 @@ let newUser = new schema({
     zip:{
         type:Number,
         required:true
+    },
+    service :{
+        type :Boolean,
+        required:true,
+        default : false
     }
     ,
     tokenSchema : [{tokendbs:{
