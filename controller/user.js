@@ -45,7 +45,7 @@ var uploads = multer({ storage: storage })
 //it will save images in our storage
 
 
-let uploadImage = multer({ storage: storage });//this will save image
+// let uploadImage = multer({ storage: storage });//this will save image
 
 
 
