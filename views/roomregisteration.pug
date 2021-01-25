@@ -6,11 +6,13 @@ block title
 
 block style
     style
-        include ./assets/css/nav.css 
+        include ./assets/css/nav.css
+        include ./assets/css/room.css 
 
 block script
     script 
         include ./assets/javascript/profile.js
+        include ./assets/javascript/room.js
 
 block content 
     h1.display-6.m-2 Home Registration
@@ -93,6 +95,376 @@ block content
             form.d-flex
               input.form-control.me-2(type="search" placeholder="Search (location)" aria-label="Search")
               button.btn.btn-outline-success(type="submit") Search
+      
+
+    .container.trems
+      h5 | Before filling the form please read the 'Terms and Conditions' well .
+      button.btn.btn-warning.trem(type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop")
+        | Terms And Conditions
+      marquee(behavior="scroll", direction="left" scrollamount ="12")
+        p.note *Please Note : Dear Sir/Mam please fill all the information correct and carefully. if any information will be wrong or fake ,our team can take legale action against you..
+
+
+
+      #staticBackdrop.modal.fade(data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true")
+        .modal-dialog.modal-dialog-scrollable
+          .modal-content
+            .modal-header
+              h5#staticBackdropLabel.modal-title Terms & Conditions
+              button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+            .modal-body
+              | Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate eaque id quia aliquam. Aliquam aliquid ipsa veniam quia fuga itaque molestias perferendis at? In ab quidem aliquid illo corrupti a!
+              | Laborum quibusdam officia laudantium consequatur iusto veritatis reiciendis laboriosam porro ullam sunt odit repellat qui soluta, ab esse voetur eligendi atque aperiam totam!
+              | Laboriosam, tenetur. Repellat fugiat harum accusantium corporis magni pariatur. Cum molestias quam magnam, doloribus, incidunt error consequatur vel laboriosam dolore a assumenda nulla dignissimos dicta iusto cumque deleniti, impedit praesentium.
+              | Aspernatur, sint corporis labore vero non hic. Sit ex aspernatur perferendis impedit obcaecati libero eius aliquid eum quo eaque rem expedita quidem veritatis, assumenda repellat minus voluptatum explicabo incidunt officia!
+              | Molestiae aspernatur asperiores veniam doloremque necessitatibus odio, incidunt, libero perferendis sunt deleniti veritatis fugiat, natus porro reprehenderit? Ea saepe doloribus amet, neque, tempora quas sint dolores architecto nulla magni similique?
+              | Sequi, dolorem. Exercitationem eaque iusto obcaecati nihil aspernatur perferendis quia quae cum omnis iste autem quibusdam officiis, rem nesciunt iure numquam recusandae facere dolore voluptas porro placeat doloremque odit? Praesentium?
+            .modal-footer
+              button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Close
+              button.btn.btn-primary(type="button") Understood
     
 
+    .container.form
+      form(action="#", method="post")
+        .personalinfo.row.g-3
+          h5.display-6.bg-light Personal Info  
+          .col-md-6
+            label(for="fname") First Name
+            input.form-control(type="text" id="fname" name="fname")
+            .valid-feedback
+              | Looks Good
+            .invalid-feedback
+              | please fill this blank
+
+
+          .col-md-6
+            label(for="lname") Last Name
+            input.form-control(type="text" id="lname" name="lname")
+            .valid-feedback
+              | Looks Good
+            .invalid-feedback
+              | please fill this blank
+
+
+
+          .col-md-6
+            label(for="fathername") Father`s Name
+            input.form-control(type="text" id="fathername" name="fathername")
+            .valid-feedback
+              | Looks Good
+            .invalid-feedback
+              | please fill this blank
+
+
+          .col-md-6
+            label(for="gender") Gender
+            select#gender.form-select(name="gender")
+              option(value="male") Male
+              option(value="female") Female
+              option(value="Transgender") Transgender
+
+          .col
+            label(for="dob") D .O .B
+            input.form-control(type="date" max="01-01-2021")
+            .valid-feedback
+              | Looks Good
+            .invalid-feedback
+              | please fill this blank
+
+          
+        
+
+
+
+        .personalinfo.row.g-3
+          h5.display-6.bg-light Contact Details  
+          .col-md-6
+            label(for="mobile") Mobile
+            input.form-control(type="number" id="mobile" name="mobile")
+            .valid-feedback
+              | Looks Good
+            .invalid-feedback
+              | please provide the valid mobile number
+
+
+          .col-md-6
+            label(for="altmobile") Alternative Mobile
+            input.form-control(type="number" id="altmobile" name="altmobile")
+            .valid-feedback
+              | Looks Good
+            .invalid-feedback
+              | please provide the valid mobile number
+
+
+
+          .col
+            label(for="email") Email
+            input.form-control(type="email" id="email" name="email" required)
+            .valid-feedback
+              | Looks Good
+            .invalid-feedback
+              | please fill valid email
+
+
+
+
+
+
+
+        .personalinfo.row.g-3
+          h5.display-6.bg-light Address Details 
+          .col-md-6
+            label(for="zip") zip
+            input.form-control(type="number" id="zip" name="zip")
+            .valid-feedback
+              | Looks Good
+            .invalid-feedback
+              | please provide the valid postal code
+
+          .col-md-6
+            label(for="city") City
+            input.form-control(type="text" id="city" name="city")
+            .valid-feedback
+              | Looks Good
+            .invalid-feedback
+              | please fill this blank
+
+          .col-md-6
+            label.form-label(for='exampleDataList') State
+            input#exampleDataList.form-control(list='datalistOptions' placeholder='Type to search...')
+            datalist#datalistOptions
+              option(value='San Francisco')
+              option(value='New York')
+              option(value='Seattle')
+              option(value='Los Angeles')
+              option(value='Chicago')
+            .valid-feedback
+              | Looks Good
+            .invalid-feedback
+              | please provide the valid postal code
+
+          .col-md-6
+            label(for="city") Village
+            input.form-control(type="text" id="city" name="city")
+            .valid-feedback
+              | Looks Good
+            .invalid-feedback
+              | please fill this blank
+
+
+          .col
+            label(for="city") Address
+            textarea.form-control(name="text")
+            .valid-feedback
+              | Looks Good
+            .invalid-feedback
+              | please fill valid email
+
+
+
+
+
+
+
+
+
+        .personalinfo.row.g-3
+          h5.display-6.bg-light Room`s Detail 
+          .col-md-6
+            label(for="roomfor") Room`s for
+            select#roomfor.form-select(name="roomfor")
+              option(value="male") Female 
+              option(value="female") Male
+              option(value="transgender") Transgender
+              option(value="all") All
+
+
+          .col-md-6
+            label(for="roomfor") Room Type
+            select#roomfor.form-select(name="roomfor")
+              option(value="male") Hostel 
+              option(value="female") Single Room
+              option(value="all") Double Room
+              option(value="transgender") 1 B.H.K
+              option(value="all") 2 B.H.K
+              option(value="all") 3 B.H.K
+
+
+          .col-md-6
+            label(for="roomfor") Washrooms
+            select#roomfor.form-select(name="roomfor")
+              option(value="male") Common
+              option(value="female") Saprate
+
+          .col-md-6
+            label(for="roomfor") Kitchen
+            select#roomfor.form-select(name="roomfor")
+              option(value="male") No
+              option(value="female") With Kitchen
+            
+
+          
+
+          .col-md-6
+            h5 Person Type
+            .form-check.form-check-inline
+              input#inlineRadio1.form-check-input(type="radio" name="inlineRadioOptions" value="option1")
+              label.form-check-label(for="inlineRadio1") Bachlors
+            .form-check.form-check-inline
+              input#inlineRadio2.form-check-input(type="radio" name="inlineRadioOptions" value="option2")
+              label.form-check-label(for="inlineRadio2") Families
+
+            .form-check.form-check-inline
+              input#inlineRadio3.form-check-input(type="radio" name="inlineRadioOptions" value="option2")
+              label.form-check-label(for="inlineRadio3") All
+
+          .col-md-6
+            label(for="email") Room Facilities
+            textarea.form-control(name="text")
+            .valid-feedback
+              | Looks Good
+            .invalid-feedback
+              | please fill valid email
+
+          .col-md-6
+            label(for="email") Room Restrictions
+            textarea.form-control(name="text")
+            .valid-feedback
+              | Looks Good
+            .invalid-feedback
+              | please fill valid email
+          
+
+          .col
+            label(for="email") Any Other Information About Room
+            textarea.form-control(name="text")
+            .valid-feedback
+              | Looks Good
+            .invalid-feedback
+              | please fill valid email
+
+         
+
+
+
+
+
+
+        .personalinfo.row.g-3
+          h5.display-6.bg-light Rent Details  
+
+          .col-md-6
+            label(for="roomfor") Electricity Bill
+            select#roomfor.form-select(name="roomfor")
+              option(value="male") Included
+              option(value="female") Excluded
+             
+
+
+          .col-md-6
+            label(for="fathername") Monthly Rent ₹
+            input.form-control(type="number" id="fathername" name="fathername")
+            .valid-feedback
+              | Looks Good
+            .invalid-feedback
+              | please fill this blank
+
+
+          //- .col-md-6
+          //-   label(for="fathername") Security Money ₹
+          //-   input.form-control(type="number" id="fathername" name="fathername")
+          //-   .valid-feedback
+          //-     | Looks Good
+          //-   .invalid-feedback
+          //-     | please fill this blank
+
+
+
+          .col-md-6
+            label(for="fathername") Down Payment ₹
+            input.form-control(type="number" id="fathername" name="fathername")
+            .valid-feedback
+              | it is returnable if not mention it
+            .invalid-feedback
+              | please fill this blank
+
+
+          .col-md-6
+            label(for="roomfor") Returnable Downpayment
+            select#roomfor.form-select(name="roomfor")
+              option(value="male") Full return
+              option(value="female") Partial deduction
+
+          .col-md-6
+            label(for="city") Any other info about rent
+            textarea.form-control(name="text" placeholder="you can also mention here about deduction of downpayment")
+            .valid-feedback
+              | Looks Good
+            .invalid-feedback
+              | please fill valid email
+
+
+
+
+
+
+              
+
+        .personalinfo.row.g-3
+          h5.display-6 Image Upload 
+          
+          .col-md-6
+            label.input-group-text(for="inputGroupFile01") Landord`s pic
+            input#inputGroupFile01.form-control(type="file")
+            .valid-feedback
+              | Looks Good
+            .invalid-feedback
+              | please fill this blank
+
+
+          .col-md-6
+            label.input-group-text(for="inputGroupFile02") Landord`s Signature
+            input#inputGroupFile02.form-control(type="file")
+            .valid-feedback
+              | Looks Good
+            .invalid-feedback
+              | please fill this blank
+
+
+
+          .col-md-6
+            label.input-group-text(for="inputGroupFile03") Room`s Image
+            input#inputGroupFile03.form-control(type="file")
+            .valid-feedback
+              | Looks Good
+            .invalid-feedback
+              | please fill this blank
+
+
+          .col-md-6
+            label.input-group-text(for="inputGroupFile03") Room`s image for gallary
+            input#inputGroupFile03.form-control(type="file")
+            .valid-feedback
+              | Looks Good
+            .invalid-feedback
+              | please fill this blank
+
+
+
+        .personalinfo.row.g-3
+          h5.display-6.bg-light Agreement 
+          
+          .col
+            h5.display-6 1 : I have read all the 'Tearms and Conditions' .
+            h5.display-6.bg-light 2 : All the information is given by me is correct .
+            h5.display-6 3 : All the documents uploaded by me is correct .
+            
+
+          .form-check
+            input#invalidCheck.form-check-input(type="checkbox" value="" required="")
+            label.form-check-label(for="invalidCheck")
+              | Agree to terms and conditions
+
+          button.btn.btn-success(value="Submit") Register
+      
      

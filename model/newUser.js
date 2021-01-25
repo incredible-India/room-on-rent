@@ -65,7 +65,10 @@ let newUser = new schema({
         required:true
     }}]
     
-
+    ,dateofMakingid:{
+        type:Date,
+        default:Date.now()
+    }
 
 
 })

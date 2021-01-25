@@ -19,7 +19,8 @@ let schema = mongoose.Schema;
         },
         email : {
             type:String,
-            required:true
+            required:true,
+            unique:true
         },
         mobile: {
             type:Number,
@@ -47,7 +48,7 @@ let schema = mongoose.Schema;
         },
 
         address : {
-            type:Array,
+            type:String,
             required:true
         },
        fathername: {
@@ -98,7 +99,61 @@ let schema = mongoose.Schema;
             required:true
         }
         
+        ,gender :{
+            type:String,
+            required:true
+        }
+        ,dob :{
+            type :Date,
+            required:true
+        }
 
+        ,village :{
+            type:String,
+            required:true
+        }
+        ,washroom:{
+            type:String,
+            required:true
+        },
+        kitchen:{
+            type:String,
+            required:true
+        }
+        ,persontype :{
+            type:String,
+            required:true
+        }
+        ,roomfacility:{
+            type:String,
+            required:true
+        },
+        anyotherinforoom :{
+            type:String,
+            required:true
+        },
+        electricbill :{
+            type:String,
+            required:true
+        },
+        downpayment:{
+            type :String,
+            required:true
+        },
+        returndwnpayment:{
+            type:String,
+            required:true
+        },
+        anyotherinforent :{
+            type:String
+            ,required:true
+        }
+
+        ,dateofrgisteration :{
+            type:Date,
+            required:true,
+            default: Date.now()
+        }
  })
 
  

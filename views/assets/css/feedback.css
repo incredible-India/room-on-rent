@@ -33,3 +33,21 @@ button {
 textarea{
     margin-top: 8px;
 }
+
+@keyframes sket{
+    0%{
+        transform: translateY(-3px);
+    }
+    50%{
+        transform: translateY(3px);
+    }
+    100%{
+        transform: translateY(-3px);
+    }
+}
+
+.img-fluid{
+    animation-name: sket;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+}
