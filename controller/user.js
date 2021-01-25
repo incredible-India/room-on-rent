@@ -286,7 +286,7 @@ router.get('/user/newregistration',checkAuth,async (req,res)=>{
 
   if(isAurthorised)
   {
-      return res.redirect('/therooms/roomsregistration/applicationform/')//later we will redirect it on the form of registration for home this router code is definr in room.js
+      return res.redirect(`/therooms/roomsregistration/applicationform/${isAurthorised._id}?/${bcryptjs.hashSync("fill",10)}`)//later we will redirect it on the form of registration for home this router code is definr in room.js
   }else
   {
       return res.status(200).redirect('/therooms/login');//if user is not aurthorised we will send the login form

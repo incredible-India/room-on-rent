@@ -125,51 +125,51 @@ block content
     
 
     .container.form
-      form(action="#", method="post")
+      form(action=`/therooms/roomsregistration/${allinfo._id}${allinfo._id}/showPreview`, method="POST" onsubmit="return checkValidation()")
         .personalinfo.row.g-3
           h5.display-6.bg-light Personal Info  
           .col-md-6
             label(for="fname") First Name
-            input.form-control(type="text" id="fname" name="fname")
+            input.form-control(type="text" id="fname" name="fname" value=allinfo.fname required)
             .valid-feedback
               | Looks Good
             .invalid-feedback
-              | please fill this blank
+              | please fill first name
 
 
           .col-md-6
             label(for="lname") Last Name
-            input.form-control(type="text" id="lname" name="lname")
+            input.form-control(type="text" id="lname" name="lname" value= allinfo.lname required)
             .valid-feedback
               | Looks Good
             .invalid-feedback
-              | please fill this blank
+              | please fill the last name
 
 
 
           .col-md-6
             label(for="fathername") Father`s Name
-            input.form-control(type="text" id="fathername" name="fathername")
+            input.form-control(type="text" id="fathername" name="fathername" required)
             .valid-feedback
               | Looks Good
             .invalid-feedback
-              | please fill this blank
+              | please enter the father name
 
 
           .col-md-6
             label(for="gender") Gender
-            select#gender.form-select(name="gender")
+            select#gender.form-select(name="gender" value = allinfo.gender)
               option(value="male") Male
               option(value="female") Female
               option(value="Transgender") Transgender
 
           .col
             label(for="dob") D .O .B
-            input.form-control(type="date" max="01-01-2021")
+            input#dob.form-control(type="date" max="01-01-2021" name="dob" required)
             .valid-feedback
               | Looks Good
             .invalid-feedback
-              | please fill this blank
+              | please fill the valid date of birth
 
           
         
@@ -180,7 +180,7 @@ block content
           h5.display-6.bg-light Contact Details  
           .col-md-6
             label(for="mobile") Mobile
-            input.form-control(type="number" id="mobile" name="mobile")
+            input.form-control(type="number" id="mobile" name="mobile" value = allinfo.mobile required)
             .valid-feedback
               | Looks Good
             .invalid-feedback
@@ -189,7 +189,7 @@ block content
 
           .col-md-6
             label(for="altmobile") Alternative Mobile
-            input.form-control(type="number" id="altmobile" name="altmobile")
+            input.form-control(type="number" id="altmobile" name="altmobile" required)
             .valid-feedback
               | Looks Good
             .invalid-feedback
@@ -199,7 +199,7 @@ block content
 
           .col
             label(for="email") Email
-            input.form-control(type="email" id="email" name="email" required)
+            input.form-control(type="email" id="email" name="email" value=allinfo.email required)
             .valid-feedback
               | Looks Good
             .invalid-feedback
@@ -215,7 +215,7 @@ block content
           h5.display-6.bg-light Address Details 
           .col-md-6
             label(for="zip") zip
-            input.form-control(type="number" id="zip" name="zip")
+            input.form-control(type="number" id="zip" name="zip" value=allinfo.zip required)
             .valid-feedback
               | Looks Good
             .invalid-feedback
@@ -223,42 +223,43 @@ block content
 
           .col-md-6
             label(for="city") City
-            input.form-control(type="text" id="city" name="city")
+            input.form-control(type="text" id="city" name="city" value=allinfo.city required)
             .valid-feedback
               | Looks Good
             .invalid-feedback
-              | please fill this blank
+              | please fill the valid city name
 
           .col-md-6
             label.form-label(for='exampleDataList') State
-            input#exampleDataList.form-control(list='datalistOptions' placeholder='Type to search...')
+            input#exampleDataList.form-control(list='datalistOptions' placeholder='Type to search...' name="state" required)
             datalist#datalistOptions
-              option(value='San Francisco')
-              option(value='New York')
-              option(value='Seattle')
-              option(value='Los Angeles')
-              option(value='Chicago')
+              
+              //- option(value='San Francisco')
+              //- option(value='New York')
+              //- option(value='Seattle')
+              //- option(value='Los Angeles')
+              //- option(value='Chicago')
             .valid-feedback
               | Looks Good
             .invalid-feedback
-              | please provide the valid postal code
+              | please provide the state
 
           .col-md-6
-            label(for="city") Village
-            input.form-control(type="text" id="city" name="city")
+            label(for="village") Village
+            input.form-control(type="text" id="village" name="village" required)
             .valid-feedback
               | Looks Good
             .invalid-feedback
-              | please fill this blank
+              | please fill village name
 
 
           .col
-            label(for="city") Address
-            textarea.form-control(name="text")
+            label(for="address") Address
+            textarea.form-control(name="address",id="address" required)
             .valid-feedback
               | Looks Good
             .invalid-feedback
-              | please fill valid email
+              | please fill valid address
 
 
 
@@ -272,7 +273,7 @@ block content
           h5.display-6.bg-light Room`s Detail 
           .col-md-6
             label(for="roomfor") Room`s for
-            select#roomfor.form-select(name="roomfor")
+            select#roomfor.form-select(name="roomfor" required)
               option(value="male") Female 
               option(value="female") Male
               option(value="transgender") Transgender
@@ -280,68 +281,62 @@ block content
 
 
           .col-md-6
-            label(for="roomfor") Room Type
-            select#roomfor.form-select(name="roomfor")
-              option(value="male") Hostel 
-              option(value="female") Single Room
-              option(value="all") Double Room
-              option(value="transgender") 1 B.H.K
-              option(value="all") 2 B.H.K
-              option(value="all") 3 B.H.K
+            label(for="roomtype") Room Type
+            select#roomtype.form-select(name="roomtype" required)
+              option(value="hostel") Hostel 
+              option(value="single") Single Room
+              option(value="double") Double Room
+              option(value="onebhk") 1 B.H.K
+              option(value="twobhk") 2 B.H.K
+              option(value="threebhk") 3 B.H.K
 
 
           .col-md-6
-            label(for="roomfor") Washrooms
-            select#roomfor.form-select(name="roomfor")
-              option(value="male") Common
-              option(value="female") Saprate
+            label(for="washrooms") Washrooms
+            select#washrooms.form-select(name="washrooms" required)
+              option(value="common") Common
+              option(value="saprate") Saprate
 
           .col-md-6
-            label(for="roomfor") Kitchen
-            select#roomfor.form-select(name="roomfor")
-              option(value="male") No
-              option(value="female") With Kitchen
+            label(for="kitchen") Kitchen
+            select#kitchen.form-select(name="kitchen" required)
+              option(value="no") No
+              option(value="yes") With Kitchen
             
 
           
 
           .col-md-6
-            h5 Person Type
-            .form-check.form-check-inline
-              input#inlineRadio1.form-check-input(type="radio" name="inlineRadioOptions" value="option1")
-              label.form-check-label(for="inlineRadio1") Bachlors
-            .form-check.form-check-inline
-              input#inlineRadio2.form-check-input(type="radio" name="inlineRadioOptions" value="option2")
-              label.form-check-label(for="inlineRadio2") Families
-
-            .form-check.form-check-inline
-              input#inlineRadio3.form-check-input(type="radio" name="inlineRadioOptions" value="option2")
-              label.form-check-label(for="inlineRadio3") All
+            label(for="persontype") Person Type
+            select#persontype.form-select(name="persontype" required)
+              option(value="bachlor") Bachlor
+              option(value="family") Family
+              option(value="all") ALL
 
           .col-md-6
-            label(for="email") Room Facilities
-            textarea.form-control(name="text")
+            label(for="roomfacilty") Room Facilities
+            textarea#roomfacilty.form-control(name="roomfacilty" required)
             .valid-feedback
               | Looks Good
             .invalid-feedback
-              | please fill valid email
+              | please fill room facilities
 
           .col-md-6
-            label(for="email") Room Restrictions
-            textarea.form-control(name="text")
+            label(for="roomrestri") Room Restrictions
+            textarea#roomrestri.form-control(name="roomrestri" required)
             .valid-feedback
               | Looks Good
             .invalid-feedback
-              | please fill valid email
+              | please fill room restrictions
           
 
           .col
-            label(for="email") Any Other Information About Room
-            textarea.form-control(name="text")
+            label(for="roominfo") Any Other Information About Room
+            textarea#roominfo.form-control(name="roominfo" required)
             .valid-feedback
               | Looks Good
             .invalid-feedback
-              | please fill valid email
+              | please fill room info
 
          
 
@@ -354,20 +349,20 @@ block content
           h5.display-6.bg-light Rent Details  
 
           .col-md-6
-            label(for="roomfor") Electricity Bill
-            select#roomfor.form-select(name="roomfor")
-              option(value="male") Included
-              option(value="female") Excluded
+            label(for="electricbill") Electricity Bill
+            select#electricbill.form-select(name="electricbill" required)
+              option(value="include") Included
+              option(value="exclude") Excluded
              
 
 
           .col-md-6
-            label(for="fathername") Monthly Rent ₹
-            input.form-control(type="number" id="fathername" name="fathername")
+            label(for="monthlyrent") Monthly Rent ₹
+            input.form-control(type="number" id="monthlyrent" name="monthlyrent" required)
             .valid-feedback
               | Looks Good
             .invalid-feedback
-              | please fill this blank
+              | please provide the monthly rent
 
 
           //- .col-md-6
@@ -381,27 +376,27 @@ block content
 
 
           .col-md-6
-            label(for="fathername") Down Payment ₹
-            input.form-control(type="number" id="fathername" name="fathername")
+            label(for="downpayment") Down Payment ₹
+            input.form-control(type="number" id="downpayment" name="downpayment" required) 
             .valid-feedback
               | it is returnable if not mention it
             .invalid-feedback
-              | please fill this blank
+              | please fill the down payment
 
 
           .col-md-6
-            label(for="roomfor") Returnable Downpayment
-            select#roomfor.form-select(name="roomfor")
-              option(value="male") Full return
-              option(value="female") Partial deduction
+            label(for="rtndwn") Returnable Downpayment
+            select#rtndwn.form-select(name="rtndwn" required)
+              option(value="full") Full return
+              option(value="partial") Partial deduction
 
           .col-md-6
-            label(for="city") Any other info about rent
-            textarea.form-control(name="text" placeholder="you can also mention here about deduction of downpayment")
+            label(for="rentinfo") Any other info about rent
+            textarea#rentinfo.form-control(name="rentinfo" placeholder="you can also mention here about deduction of downpayment" required)
             .valid-feedback
               | Looks Good
             .invalid-feedback
-              | please fill valid email
+              | please fill rent info
 
 
 
@@ -415,39 +410,39 @@ block content
           
           .col-md-6
             label.input-group-text(for="inputGroupFile01") Landord`s pic
-            input#inputGroupFile01.form-control(type="file")
+            input#inputGroupFile01.form-control(type="file" name="landlord" required)
             .valid-feedback
               | Looks Good
             .invalid-feedback
-              | please fill this blank
+              | please upload the image
 
 
           .col-md-6
             label.input-group-text(for="inputGroupFile02") Landord`s Signature
-            input#inputGroupFile02.form-control(type="file")
+            input#inputGroupFile02.form-control(type="file" name="sign" required)
             .valid-feedback
               | Looks Good
             .invalid-feedback
-              | please fill this blank
+              | please upload the signature
 
 
 
           .col-md-6
             label.input-group-text(for="inputGroupFile03") Room`s Image
-            input#inputGroupFile03.form-control(type="file")
+            input#inputGroupFile03.form-control(type="file" name="roompic" required)
             .valid-feedback
               | Looks Good
             .invalid-feedback
-              | please fill this blank
+              | please upload the image
 
 
           .col-md-6
-            label.input-group-text(for="inputGroupFile03") Room`s image for gallary
-            input#inputGroupFile03.form-control(type="file")
+            label.input-group-text(for="inputGroupFile04") Room`s image for gallary
+            input#inputGroupFile04.form-control(type="file" name="roomgallary" required)
             .valid-feedback
               | Looks Good
             .invalid-feedback
-              | please fill this blank
+              | please upload the images
 
 
 
@@ -461,9 +456,13 @@ block content
             
 
           .form-check
-            input#invalidCheck.form-check-input(type="checkbox" value="" required="")
+            input#invalidCheck.form-check-input(type="checkbox" value="yes" required)
             label.form-check-label(for="invalidCheck")
               | Agree to terms and conditions
+            .valid-feedback
+              | Looks Good
+            .invalid-feedback
+              | please check the terms and conditions
 
           button.btn.btn-success(value="Submit") Register
       
