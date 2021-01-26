@@ -125,7 +125,7 @@ block content
     
 
     .container.form
-      form(action=`/therooms/roomsregistration/${allinfo._id}${allinfo._id}/showPreview`, method="POST" onsubmit="return checkValidation()")
+      form(action=`/therooms/roomsregistration/${allinfo._id}${allinfo._id}/showPreview`, method="POST"  onsubmit="return checkValidation()" enctype='multipart/form-data')
         .personalinfo.row.g-3
           h5.display-6.bg-light Personal Info  
           .col-md-6
@@ -428,8 +428,8 @@ block content
 
 
           .col-md-6
-            label.input-group-text(for="inputGroupFile03") Room`s Image
-            input#inputGroupFile03.form-control(type="file" name="roompic" required)
+            label.input-group-text(for="inputGroupFile03") Document`s Image
+            input#inputGroupFile03.form-control(type="file" name="document" required)
             .valid-feedback
               | Looks Good
             .invalid-feedback
@@ -438,7 +438,7 @@ block content
 
           .col-md-6
             label.input-group-text(for="inputGroupFile04") Room`s image for gallary
-            input#inputGroupFile04.form-control(type="file" name="roomgallary" required)
+            input#inputGroupFile04.form-control(type="file" name="roomgallary" multiple required)
             .valid-feedback
               | Looks Good
             .invalid-feedback

@@ -1,11 +1,11 @@
 //this is the rooms available for the user site
-const express =require('express'); //express js
+const express = require('express'); //express js
 const router = express.Router();//setting the router info
 const bodyParser = require('body-parser');//parsing data from url
 const bcryptjs = require('bcryptjs');//for encrypting the password
 const { check, validationResult } = require('express-validator');//it will check the form validation on server
-const path =require('path');//for the path
-const fs =require('fs');//file system module ,helps to store the data
+const path = require('path');//for the path
+const fs = require('fs');//file system module ,helps to store the data
 const checkAuth = require('./../authentication/auth'); //this is the auth code for the user
 const multer = require('multer');//for the uploading the image 
 
@@ -37,7 +37,7 @@ var storage = multer.diskStorage({ //this will save the lanlord image
     }
 })
 
-var uploads = multer({ storage: storage }) ;//for the lanlord images
+var uploadss = multer({ storage: storage });//for the lanlord images
 
 
 
@@ -52,21 +52,21 @@ var signature = multer.diskStorage({ //this will save the lanlord image
     }
 })
 
-var signatures = multer({ storage: signature }) ;//for the signature
+var signatures = multer({ storage: signature });//for the signature
 
 
 
 //for the room pic 
-var room = multer.diskStorage({ //this will save the single room image
-    destination: 'room'
+var Document = multer.diskStorage({ //this will save the single room image
+    destination: 'Document'
 
-
+ 
     , filename: (req, file, cb) => {
         cb(null, Date.now() + "_user_" + file.originalname)
     }
 })
 
-var Singleroom= multer({ storage: room }) ;//for the single room  images
+var Singleroom = multer({ storage: Document });//for the single room  images
 
 //for the multi rooms images
 
@@ -79,7 +79,7 @@ var rooms = multer.diskStorage({ //this will save the multi room image
     }
 })
 
-var Singlerooms= multer({ storage: rooms }) ;//for the multi room  images
+var Gallaryrooms = multer({ storage: rooms });//for the multi room  images
 
 
 
@@ -89,88 +89,86 @@ var Singlerooms= multer({ storage: rooms }) ;//for the multi room  images
 
 //for the room registration form
 
-router.get('/applicationform/:userid',checkAuth,async (req,res)=>{
+router.get('/applicationform/:userid', checkAuth, async (req, res) => {
 
     let isAuthenticate = await req.isAurthised;//this will return user info or null
-if(isAuthenticate._id == req.params.userid)
-{
-    if(isAuthenticate)//if user is aurthoried 
-    {
-   
-         return res.status(200).render('roomregisteration',{
-             allinfo : isAuthenticate //all the userinfo
-         });//this is the registration form
- 
- 
-    }else
-    {
-     return res.status(200).redirect('/therooms/login');//if user is not aurthorised we will send the login form
+    if (isAuthenticate._id == req.params.userid) {
+        if (isAuthenticate)//if user is aurthoried 
+        {
+
+            return res.status(200).render('roomregisteration', {
+                allinfo: isAuthenticate //all the userinfo
+            });//this is the registration form
+
+
+        } else {
+            return res.status(200).redirect('/therooms/login');//if user is not aurthorised we will send the login form
+        }
+    } else {
+        return res.json({
+            message: "Error page not found please try again"
+        })
     }
-}else
-{
-    return res.json({
-        message :"Error page not found please try again"
-    })
-}
- 
+
 
 })
 
 
 //after felling the form we have to show the preview to the user
 
-router.post('/:userid/showPreview',[
+router.post('/:userid/showPreview',uploadss.single('landlord'),
+
+    [
 
 
-//checking the validation of the submitted form on server
+        //checking the validation of the submitted form on server
 
-    check('fname').not().isEmail().trim(),
-    check('lname').not().isEmail().trim(),
-    check('fathername').not().isEmail().trim(),
-    check('dob').not().isEmpty(),
-    check('mobile').not().isEmpty().trim(),
-    check('altmobile').not().isEmpty().trim(),
-    check('email').isEmail().normalizeEmail().trim(),
-    check('city').not().isEmpty().trim(),
-    check('zip').not().isEmpty().trim(),
-    check('state').not().isEmpty().trim(),
-    check('village').not().isEmpty().trim(),
-    check('address').not().isEmpty().trim(),
-    check('roomfacilty').not().isEmpty().trim(),
-    check('roomrestri').not().isEmpty().trim(),
-    check('roominfo').not().isEmpty().trim(),
-    check('monthlyrent').not().isEmpty().trim(),
-    check('downpayment').not().isEmpty().trim(),
-    check('rentinfo').not().isEmpty().trim(),
-
-
-
-],checkAuth,async (req,res)=>{
-
-    let formValidationError = validationResult(req);
-
-    if(!formValidationError.isEmpty()) // if there is any kind of form validation error
-    {
-
-        return res.json({
-            message : "form validation error at show preview",
-            error : formValidationError.array()
-        })
-
-    }
-
-    let isauthenticateUser =await req.isAurthised;//this will check the authority of user...
-
-    if(isauthenticateUser) //first we will check the user authentication 
-    {
-        return res.send(req.body)
-
-    }else
-    {
-        return res.redirect('/therooms/login'); //if user is not aurthorosed we will send login form
-    }
-
-})
+        check('fname').not().isEmail().trim(),
+        check('lname').not().isEmail().trim(),
+        check('fathername').not().isEmail().trim(),
+        check('dob').not().isEmpty(),
+        check('mobile').not().isEmpty().trim(),
+        check('altmobile').not().isEmpty().trim(),
+        check('email').isEmail().normalizeEmail().trim(),
+        check('city').not().isEmpty().trim(),
+        check('zip').not().isEmpty().trim(),
+        check('state').not().isEmpty().trim(),
+        check('village').not().isEmpty().trim(),
+        check('address').not().isEmpty().trim(),
+        check('roomfacilty').not().isEmpty().trim(),
+        check('roomrestri').not().isEmpty().trim(),
+        check('roominfo').not().isEmpty().trim(),
+        check('monthlyrent').not().isEmpty().trim(),
+        check('downpayment').not().isEmpty().trim(),
+        check('rentinfo').not().isEmpty(),
 
 
-module.exports  = router;
+
+    ], checkAuth, async (req, res) => {
+
+        let formValidationError = validationResult(req);
+
+        if (!formValidationError.isEmpty()) // if there is any kind of form validation error
+        {
+
+            return res.json({
+                message: "form validation error at show preview",
+                error: formValidationError.array()
+            })
+
+        }
+
+        let isauthenticateUser = await req.isAurthised;//this will check the authority of user...
+
+        if (isauthenticateUser) //first we will check the user authentication 
+        {
+            return res.send(req.body)
+
+        } else {
+            return res.redirect('/therooms/login'); //if user is not aurthorosed we will send login form
+        }
+
+    })
+
+
+module.exports = router;
