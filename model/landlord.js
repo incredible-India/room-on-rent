@@ -153,6 +153,10 @@ let schema = mongoose.Schema;
             type:Date,
             required:true,
             default: Date.now()
+        },
+        roomname :{
+            type:String
+            
         }
  })
 

@@ -1,0 +1,120 @@
+extends ./base.pug 
+
+block title
+    title Registration : The Rooms
+
+
+block style
+    style
+        include ./assets/css/nav.css
+        include ./assets/css/room.css 
+
+block script
+    script 
+        include ./assets/javascript/profile.js
+    
+
+block content 
+    h1.display-6.m-2 Home Registration
+
+    .spiner
+      .spinner-grow.text-primary(role="status")
+          span.sr-only Loading...
+      .spinner-grow.text-secondary(role="status")
+          span.sr-only Loading...
+      .spinner-grow.text-success(role="status")
+          span.sr-only Loading...
+      .spinner-grow.text-danger(role="status")
+          span.sr-only Loading...
+      .spinner-grow.text-warning(role="status")
+          span.sr-only Loading...
+      .spinner-grow.text-info(role="status")
+          span.sr-only Loading...
+      .spinner-grow.text-light(role="status")
+          span.sr-only Loading...
+      .spinner-grow.text-dark(role="status")
+          span.sr-only Loading...
+    .navstcky
+      nav.navbar.navbar-expand-lg.navbar-light.bg-light
+        .container-fluid
+          a.navbar-brand(href="/")
+            img.d-inline-block.align-top(src="/../ico/logo.png" alt="" width="30" height="24")
+            |             THE 
+            span(style="color: darkblue;") ROOMS
+          button.navbar-toggler(type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation")
+            span.navbar-toggler-icon
+          #navbarNavDropdown.collapse.navbar-collapse
+            ul.navbar-nav
+              li.nav-item
+                a.nav-link.active(aria-current="page" href="/therooms/services")
+                  i.fas.fa-info
+                  |  Services
+              li.nav-item
+                a.nav-link(href="#")
+                  i.fa.fa-gift
+                  |  Offers
+              li.nav-item
+                a.nav-link(href="/contactUs")
+                  i.fas.fa-phone
+                  |  Contact us
+              
+              li.nav-item
+                a.nav-link(href="#")
+                  img#img.img-fluid(src="data:" + allinfo.img.ContentType + "; base64 ," + allinfo.img.data.toString('base64'), alt="User image" )
+              li.nav-item.dropdown
+                a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false")
+                 
+                  |  #{allinfo.fname}
+                ul.dropdown-menu(aria-labelledby="navbarDropdownMenuLink")
+                  li
+                    a.dropdown-item(href="/therooms/" + "userProfile/" + allinfo._id + "/?" + "userProfile")
+                      i.fas.fa-user
+                      |  Profile
+                  li
+                    a.dropdown-item(href="/therooms/newusers")
+                      i.fas.fa-heart
+                      |  My wishlist
+                  li
+                    a.dropdown-item(href="#")
+                      i.fas.fa-th-list
+                      |  My Booking
+                  li
+                    a.dropdown-item(href="/therooms/user/feedback")
+                      i.fas.fa-pen
+                      |  FeedBack
+                  li
+                    a.dropdown-item(href="/therooms/user" + "/logout/?" + "urldataForLgout" )
+                      i.fas.fa-user-times
+                      |  Logout
+
+
+    
+    .container
+        h4.display-6.bg-light.m-2 Image Uplods
+
+        form.container.form-control(action=`/therooms/roomsregistration/showpreview/${crypted}/?uploadedimages` method='POST' novalidate='' enctype='multipart/form-data')
+            .row.g-3.m-3
+                .col-md-6
+                    //- label.bg-light.m-3(for="owner") Owner`s Image
+                    //- input.form-control(type="file", name="owner" id="owner" required='')
+
+                    label.bg-light.m-3(for="sign") Signature
+                    input.form-control(type="file", name="sign" id="sign" required='') 
+
+                //- .col-md-6
+                //-     label.bg-light.m-3(for="documents") Document
+                //-     input.form-control(type="file", name="documentsr" id="documents" required='')
+
+                //-     label.bg-light.m-3(for="rooms") Room`s images
+                //-     input.form-control(type="file", name="rooms" id="rooms"  required='')
+
+                .col-md-6
+
+                
+                button.btn.btn-success(value='submit') Final Submit
+
+        
+
+    .container
+
+        button.btn.btn-warning.m-3(onclick ="history.go(-1)") Edit Form

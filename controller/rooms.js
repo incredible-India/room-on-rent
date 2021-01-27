@@ -27,9 +27,9 @@ express().set('views', path.join(__dirname, '../views/pug/'));//it will look all
 //now the code for images
 
 
+var storage = multer.diskStorage({
 
-var storage = multer.diskStorage({ //this will save the lanlord image
-    destination: 'landlord'
+    destination: 'OwnersInformation'
 
 
     , filename: (req, file, cb) => {
@@ -37,49 +37,48 @@ var storage = multer.diskStorage({ //this will save the lanlord image
     }
 })
 
-var uploadss = multer({ storage: storage });//for the lanlord images
-
+var uploads = multer({ storage: storage })
 
 
 //for the lanlord signature...
 
-var signature = multer.diskStorage({ //this will save the lanlord image
-    destination: 'signature'
+// var signature = multer.diskStorage({ //this will save the lanlord image
+//     destination: 'signature'
 
 
-    , filename: (req, file, cb) => {
-        cb(null, Date.now() + "_user_" + file.originalname)
-    }
-})
+//     , filename: (req, file, cb) => {
+//         cb(null, Date.now() + "_user_" + file.originalname)
+//     }
+// })
 
-var signatures = multer({ storage: signature });//for the signature
+// var signatures = multer({ storage: signature });//for the signature
 
 
 
-//for the room pic 
-var Document = multer.diskStorage({ //this will save the single room image
-    destination: 'Document'
+// //for the room pic 
+// var Document = multer.diskStorage({ //this will save the single room image
+//     destination: 'Document'
 
  
-    , filename: (req, file, cb) => {
-        cb(null, Date.now() + "_user_" + file.originalname)
-    }
-})
+//     , filename: (req, file, cb) => {
+//         cb(null, Date.now() + "_user_" + file.originalname)
+//     }
+// })
 
-var Singleroom = multer({ storage: Document });//for the single room  images
+// var Singleroom = multer({ storage: Document });//for the single room  images
 
-//for the multi rooms images
+// //for the multi rooms images
 
-var rooms = multer.diskStorage({ //this will save the multi room image
-    destination: 'rooms'
+// var rooms = multer.diskStorage({ //this will save the multi room image
+//     destination: 'rooms'
 
 
-    , filename: (req, file, cb) => {
-        cb(null, Date.now() + "_user_" + file.originalname)
-    }
-})
+//     , filename: (req, file, cb) => {
+//         cb(null, Date.now() + "_user_" + file.originalname)
+//     }
+// })
 
-var Gallaryrooms = multer({ storage: rooms });//for the multi room  images
+// var Gallaryrooms = multer({ storage: rooms });//for the multi room  images
 
 
 
@@ -92,12 +91,14 @@ var Gallaryrooms = multer({ storage: rooms });//for the multi room  images
 router.get('/applicationform/:userid', checkAuth, async (req, res) => {
 
     let isAuthenticate = await req.isAurthised;//this will return user info or null
-    if (isAuthenticate._id == req.params.userid) {
-        if (isAuthenticate)//if user is aurthoried 
+
+    if (isAuthenticate) {
+        if (isAuthenticate._id == req.params.userid)//if user is aurthoried 
         {
 
             return res.status(200).render('roomregisteration', {
-                allinfo: isAuthenticate //all the userinfo
+                allinfo: isAuthenticate ,
+                crypted : await bcryptjs.hashSync(req.params.userid)//all the userinfo
             });//this is the registration form
 
 
@@ -115,8 +116,8 @@ router.get('/applicationform/:userid', checkAuth, async (req, res) => {
 
 
 //after felling the form we have to show the preview to the user
-
-router.post('/:userid/showPreview',uploadss.single('landlord'),
+//this router is for the basic deatils of user  we will send the the user image uplod options in this router if there is no error
+router.post('/imageuplods/:mainuserid',
 
     [
 
@@ -148,6 +149,7 @@ router.post('/:userid/showPreview',uploadss.single('landlord'),
 
         let formValidationError = validationResult(req);
 
+       
         if (!formValidationError.isEmpty()) // if there is any kind of form validation error
         {
 
@@ -159,16 +161,42 @@ router.post('/:userid/showPreview',uploadss.single('landlord'),
         }
 
         let isauthenticateUser = await req.isAurthised;//this will check the authority of user...
-
-        if (isauthenticateUser) //first we will check the user authentication 
+      
+       
+        if (isauthenticateUser) //first we will check the user authentication  
         {
-            return res.send(req.body)
 
-        } else {
+
+            if(req.params.mainuserid == isauthenticateUser._id) //this is second level varification so that if anyone change the url we won't process thenext image upload form
+            {
+                return res.render('imageuplods',{ //we will send the one more form for the image uplods only
+                    allinfo : isauthenticateUser
+                    ,crypted : req.params.mainuserid 
+                })
+            }else
+            {
+                return res.json({
+                    message :"error 404 page not found please try again"
+                })
+            }
+         
+
+
+
+        } else { 
             return res.redirect('/therooms/login'); //if user is not aurthorosed we will send login form
         }
 
     })
 
 
+
+    //above router was for the data details and now for the image uplods 
+
+router.post('/showpreview/:userid',uploads.single('sign'), checkAuth ,async (req,res) =>{
+
+
+    res.send("ok")
+
+})
 module.exports = router;

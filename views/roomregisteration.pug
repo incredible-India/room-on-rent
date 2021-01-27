@@ -125,7 +125,7 @@ block content
     
 
     .container.form
-      form(action=`/therooms/roomsregistration/${allinfo._id}${allinfo._id}/showPreview`, method="POST"  onsubmit="return checkValidation()" enctype='multipart/form-data')
+      form(action=`/therooms/roomsregistration/imageuplods/${allinfo._id}` method="POST"  onsubmit="return checkValidation()")
         .personalinfo.row.g-3
           h5.display-6.bg-light Personal Info  
           .col-md-6
@@ -163,13 +163,21 @@ block content
               option(value="female") Female
               option(value="Transgender") Transgender
 
-          .col
+          .col-md-6
             label(for="dob") D .O .B
             input#dob.form-control(type="date" max="01-01-2021" name="dob" required)
             .valid-feedback
               | Looks Good
             .invalid-feedback
               | please fill the valid date of birth
+
+          .col-md-6
+            label(for="roomname") House Name
+            input.form-control(type="text" id="roomname" name="roomname" required)
+            .valid-feedback
+              | Looks Good
+            .invalid-feedback
+              | please enter the room name
 
           
         
@@ -405,44 +413,44 @@ block content
 
               
 
-        .personalinfo.row.g-3
-          h5.display-6 Image Upload 
+        //- .personalinfo.row.g-3
+        //-   h5.display-6 Image Upload 
           
-          .col-md-6
-            label.input-group-text(for="inputGroupFile01") Landord`s pic
-            input#inputGroupFile01.form-control(type="file" name="landlord" required)
-            .valid-feedback
-              | Looks Good
-            .invalid-feedback
-              | please upload the image
+        //-   .col-md-6
+        //-     label.input-group-text(for="inputGroupFile01") Landord`s pic
+        //-     input#inputGroupFile01.form-control(type="file" name="landlords" required)
+        //-     .valid-feedback
+        //-       | Looks Good
+        //-     .invalid-feedback
+        //-       | please upload the image
 
 
-          .col-md-6
-            label.input-group-text(for="inputGroupFile02") Landord`s Signature
-            input#inputGroupFile02.form-control(type="file" name="sign" required)
-            .valid-feedback
-              | Looks Good
-            .invalid-feedback
-              | please upload the signature
+        //-   .col-md-6
+        //-     label.input-group-text(for="inputGroupFile02") Landord`s Signature
+        //-     input#inputGroupFile02.form-control(type="file" name="sign" required)
+        //-     .valid-feedback
+        //-       | Looks Good
+        //-     .invalid-feedback
+        //-       | please upload the signature
 
 
 
-          .col-md-6
-            label.input-group-text(for="inputGroupFile03") Document`s Image
-            input#inputGroupFile03.form-control(type="file" name="document" required)
-            .valid-feedback
-              | Looks Good
-            .invalid-feedback
-              | please upload the image
+        //-   .col-md-6
+        //-     label.input-group-text(for="inputGroupFile03") Document`s Image
+        //-     input#inputGroupFile03.form-control(type="file" name="document" required)
+        //-     .valid-feedback
+        //-       | Looks Good
+        //-     .invalid-feedback
+        //-       | please upload the image
 
 
-          .col-md-6
-            label.input-group-text(for="inputGroupFile04") Room`s image for gallary
-            input#inputGroupFile04.form-control(type="file" name="roomgallary" multiple required)
-            .valid-feedback
-              | Looks Good
-            .invalid-feedback
-              | please upload the images
+        //-   .col-md-6
+        //-     label.input-group-text(for="inputGroupFile04") Room`s image for gallary
+        //-     input#inputGroupFile04.form-control(type="file" name="roomgallary" multiple required)
+        //-     .valid-feedback
+        //-       | Looks Good
+        //-     .invalid-feedback
+        //-       | please upload the images
 
 
 
@@ -464,6 +472,6 @@ block content
             .invalid-feedback
               | please check the terms and conditions
 
-          button.btn.btn-success(value="Submit") Register
+          button.btn.btn-success(value="Submit") Next
       
      
