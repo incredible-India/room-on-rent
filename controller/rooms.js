@@ -8,6 +8,7 @@ const path = require('path');//for the path
 const fs = require('fs');//file system module ,helps to store the data
 const checkAuth = require('./../authentication/auth'); //this is the auth code for the user
 const multer = require('multer');//for the uploading the image 
+const {base64decode ,base64encode} = require('nodejs-base64');//this will encode and decode the informations used in url
 
 
 // useing middlewaras 
@@ -171,7 +172,7 @@ router.post('/imageuplods/:mainuserid',
             {
                 return res.render('imageuplods',{ //we will send the one more form for the image uplods only
                     allinfo : isauthenticateUser
-                    ,crypted : req.params.mainuserid 
+                    ,crypted : base64encode(req.params.mainuserid) //this is the id of user in data base
                 })
             }else
             {
