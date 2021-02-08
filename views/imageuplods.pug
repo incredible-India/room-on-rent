@@ -90,30 +90,41 @@ block content
 
     
     .container
-        h4.display-6.bg-light.m-2 Image Uplods
+        h4.display-6.bg-light.m-2 Image Uplods (#{FormTitle})
 
-        form.container.form-control(action=`/therooms/roomsregistration/showpreview/${crypted}/?uploadedimages` method='POST' novalidate='' enctype='multipart/form-data')
+        if (ownerPic)
+          form.container.form-control(action=`/therooms/roomsregistration/showpreview/${crypted}/${jsonData}/?uploadedimages` method='POST' novalidate='' enctype='multipart/form-data')
             .row.g-3.m-3
                 .col-md-6
-                    //- label.bg-light.m-3(for="owner") Owner`s Image
-                    //- input.form-control(type="file", name="owner" id="owner" required='')
-
-                    label.bg-light.m-3(for="sign") Signature
-                    input.form-control(type="file", name="sign" id="sign" required='')  
-
-                //- .col-md-6
-                //-     label.bg-light.m-3(for="documents") Document
-                //-     input.form-control(type="file", name="documentsr" id="documents" required='')
-
-                //-     label.bg-light.m-3(for="rooms") Room`s images
-                //-     input.form-control(type="file", name="rooms" id="rooms"  required='')
-
-                .col-md-6
-
+                  label.bg-light.m-3(for="owner") Owner`s Image
+                  input.form-control(type="file", name="owner" id="owner" required='')
                 
-                button.btn.btn-success(value='submit') Final Submit
+                button.btn.btn-success(value='submit') Next Upload (1/4)
 
-        
+                   
+        if (ownersign)
+          form.container.form-control(action=`/therooms/roomsregistration/showpreview/${crypted}/${jsonData}/?uploadedimages` method='POST' novalidate='' enctype='multipart/form-data')
+            .row.g-3.m-3
+                .col-md-6
+                  label.bg-light.m-3(for="owner") Owner`s Signature
+                  input.form-control(type="file", name="sign" id="owner" required='')
+                button.btn.btn-success(value='submit') Next Upload (2/4)
+
+        if (roomdocs)
+          form.container.form-control(action=`/therooms/roomsregistration/showpreview/${crypted}/${jsonData}/?uploadedimages` method='POST' novalidate='' enctype='multipart/form-data')
+            .row.g-3.m-3
+                .col-md-6
+                    label.bg-light.m-3(for="owner") Documents
+                    input.form-control(type="file", name="docs" id="owner" required='')
+                button.btn.btn-success(value='submit') Next Upload (3/4)
+
+        if (roomgall)
+          form.container.form-control(action=`/therooms/roomsregistration/showpreview/${crypted}/${jsonData}/?uploadedimages` method='POST' novalidate='' enctype='multipart/form-data')
+            .row.g-3.m-3
+                .col-md-6
+                    label.bg-light.m-3(for="owner") Rooms Images
+                    input.form-control(type="file", name="roomgal" id="owner" required='')
+                button.btn.btn-success(value='submit') Final Submit
 
     .container
 

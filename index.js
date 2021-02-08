@@ -19,6 +19,7 @@ const rooms =require('./controller/rooms');//for rooms and the registration
 const app = express();
 
 
+
 //setting templates engine i.e pug
 
 app.set('view engine','pug');

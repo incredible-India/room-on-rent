@@ -1,4 +1,5 @@
 //this is the rooms available for the user site
+require('dotenv').config(); //for the reading data from dotenv file
 const express = require('express'); //express js
 const router = express.Router();//setting the router info
 const bodyParser = require('body-parser');//parsing data from url
@@ -30,7 +31,7 @@ express().set('views', path.join(__dirname, '../views/pug/'));//it will look all
 
 var storage = multer.diskStorage({
 
-    destination: 'OwnersInformation'
+    destination: 'OwnersInformation/OwnerImage'
 
 
     , filename: (req, file, cb) => {
@@ -41,18 +42,18 @@ var storage = multer.diskStorage({
 var uploads = multer({ storage: storage })
 
 
-//for the lanlord signature...
+// for the lanlord signature...
 
-// var signature = multer.diskStorage({ //this will save the lanlord image
-//     destination: 'signature'
+var signature = multer.diskStorage({ //this will save the lanlord image
+    destination: 'OwnersInformation/OwnerSignature'
 
 
-//     , filename: (req, file, cb) => {
-//         cb(null, Date.now() + "_user_" + file.originalname)
-//     }
-// })
+    , filename: (req, file, cb) => {
+        cb(null, Date.now() + "_user_" + file.originalname)
+    }
+})
 
-// var signatures = multer({ storage: signature });//for the signature
+var signatures = multer({ storage: signature });//for the signature
 
 
 
@@ -172,7 +173,16 @@ router.post('/imageuplods/:mainuserid',
             {
                 return res.render('imageuplods',{ //we will send the one more form for the image uplods only
                     allinfo : isauthenticateUser
-                    ,crypted : base64encode(req.params.mainuserid) //this is the id of user in data base
+                    ,FormTitle: "Owner`s Image"
+                    ,jsonData : base64encode(JSON.stringify(req.body))// this is the information of the user in string and encoded form
+                    ,crypted : base64encode(req.params.mainuserid) //this is the id of user in data base,
+                    ,ownerPic :true  //owner pics option will show
+                    ,ownersign : false //owner sign from option will show
+
+                     ,roomdocs :false //owner document from option will show
+                    ,roomgall :false //owner room gallary from option will show
+                    
+
                 })
             }else
             {
@@ -194,10 +204,50 @@ router.post('/imageuplods/:mainuserid',
 
     //above router was for the data details and now for the image uplods 
 
-router.post('/showpreview/:userid',uploads.single('sign'), checkAuth ,async (req,res) =>{
+
+    //this router is for the owners image uploads
+router.post('/showpreview/:userid/:userdata/',uploads.single('owner') , checkAuth ,async (req,res) =>{
+
+    //:userdata contain user form information in encode form
+   
+    let isauthenticateUser = await req.isAurthised;//this will check the authority of user...
+
+    //first we will varify the user for simple authenticaton basic level check
+    if(isauthenticateUser)
+    {
+        //now will varify the user by url data of userid second level security
+        if(isauthenticateUser._id == base64decode(req.params.userid))
+        {
+
+            return res.render('imageuplods',{ //we will send the one more form for the image uplods only
+                allinfo : isauthenticateUser
+                ,FormTitle: "Owner`s Signature"
+                ,jsonData : base64encode(req.params.userdata)// this is the information of the user in string and encoded form
+                ,crypted : base64encode(req.params.userid) //this is the id of user in data base,
+                ,ownerImginfo : base64encode(JSON.stringify(req.file)) //this is the image information of owner pic in json ,
+                ,ownerPic :false  //owner pics option will show
+                ,ownersign : true //owner sign from option will show
+
+                 ,roomdocs :false //owner document from option will show
+                ,roomgall :false //owner room gallary from option will show
+                
+
+            })
+
+        }else
+        {
+           res.status(404).json({
+               status : false,
+               message : "data urlId and authentcation id did not match in first img upload"
+           })
+        }
+
+    }else
+    {
+        return res.redirect('/therooms/login'); //if user is not aurthorosed we will send login form
+    }
 
 
-    res.send("ok")
 
 })
 module.exports = router;
