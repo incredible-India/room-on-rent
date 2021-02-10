@@ -42,9 +42,9 @@ var storage = multer.diskStorage({
 var uploads = multer({ storage: storage })
 
 
-// for the lanlord signature...
+// for the ownerssignature...
 
-var signature = multer.diskStorage({ //this will save the lanlord image
+var signature = multer.diskStorage({ //this will save the owner signature
     destination: 'OwnersInformation/OwnerSignature'
 
 
@@ -57,30 +57,30 @@ var signatures = multer({ storage: signature });//for the signature
 
 
 
-// //for the room pic 
-// var Document = multer.diskStorage({ //this will save the single room image
-//     destination: 'Document'
+//for the owner docs
+var Document = multer.diskStorage({ //this will save the single room image
+    destination: 'OwnersInformation/OwnerDocs'
 
  
-//     , filename: (req, file, cb) => {
-//         cb(null, Date.now() + "_user_" + file.originalname)
-//     }
-// })
+    , filename: (req, file, cb) => {
+        cb(null, Date.now() + "_user_" + file.originalname)
+    }
+})
 
-// var Singleroom = multer({ storage: Document });//for the single room  images
+var docs = multer({ storage: Document });//for the single room  documents
 
-// //for the multi rooms images
+//for the multi rooms images
 
-// var rooms = multer.diskStorage({ //this will save the multi room image
-//     destination: 'rooms'
+var rooms = multer.diskStorage({ //this will save the multi room image
+    destination: 'OwnersInformation/RoomGallary'
 
 
-//     , filename: (req, file, cb) => {
-//         cb(null, Date.now() + "_user_" + file.originalname)
-//     }
-// })
+    , filename: (req, file, cb) => {
+        cb(null, Date.now() + "_user_" + file.originalname)
+    }
+})
 
-// var Gallaryrooms = multer({ storage: rooms });//for the multi room  images
+var Gallaryrooms = multer({ storage: rooms }); //for the multi room  images
 
 
 
@@ -119,7 +119,7 @@ router.get('/applicationform/:userid', checkAuth, async (req, res) => {
 
 //after felling the form we have to show the preview to the user
 //this router is for the basic deatils of user  we will send the the user image uplod options in this router if there is no error
-router.post('/imageuplods/:mainuserid',
+router.post('/imageuplods/:mainuserid', uploads.single('owner') ,
 
     [
 
@@ -171,7 +171,8 @@ router.post('/imageuplods/:mainuserid',
 
             if(req.params.mainuserid == isauthenticateUser._id) //this is second level varification so that if anyone change the url we won't process thenext image upload form
             {
-                return res.render('imageuplods',{ //we will send the one more form for the image uplods only
+                return res.status(200
+                    ).render('imageuplods',{ //we will send the one more form for the image uplods only
                     allinfo : isauthenticateUser
                     ,FormTitle: "Owner`s Image"
                     ,jsonData : base64encode(JSON.stringify(req.body))// this is the information of the user in string and encoded form
@@ -195,59 +196,223 @@ router.post('/imageuplods/:mainuserid',
 
 
         } else { 
-            return res.redirect('/therooms/login'); //if user is not aurthorosed we will send login form
+            return res.status(200).redirect('/therooms/login'); //if user is not aurthorosed we will send login form
         }
 
     })
 
 
 
-    //above router was for the data details and now for the image uplods 
+//1st form i.e owners image uploads routing code  this action url inside the owner image uploads form only
+//it will contain only the userdata and produce userimage and show sign uplods
 
-
-    //this router is for the owners image uploads
-router.post('/showpreview/:userid/:userdata/',uploads.single('owner') , checkAuth ,async (req,res) =>{
-
-    //:userdata contain user form information in encode form
-   
+router.post('/showpreview/:userid/:userData/',uploads.single('owner'),signatures.single('sign'),checkAuth ,async (req,res) =>{
+ 
+//:userid conatains id from url in of database 
+//:userData contains the user data in the primary form
+    
     let isauthenticateUser = await req.isAurthised;//this will check the authority of user...
-
-    //first we will varify the user for simple authenticaton basic level check
-    if(isauthenticateUser)
+    let idThrghURL = base64decode(req.params.userid);//this is the user id from the url
+    //first check the basic sequrity that is user varified or not 
+if(isauthenticateUser)
+{
+    if(isauthenticateUser.id == idThrghURL)//this is second level security for the user ...
     {
-        //now will varify the user by url data of userid second level security
-        if(isauthenticateUser._id == base64decode(req.params.userid))
-        {
+        
+        return res.status(200
+            ).render('imageuplods',{ //we will send the one more form for the image uplods only
+            allinfo : isauthenticateUser
+            ,FormTitle: "Owner`s Signature"
+            ,jsonData : req.params.userData// this is the information of the user in string and encoded form
+            ,crypted : req.params.userid //this is the id of user in data base,
+            ,ownerImg: base64encode(JSON.stringify(req.file))//this is the user image produce in sign in form during filling this 
+            ,ownerPic :false  //owner pics option will show
+            ,ownersign : true //owner sign from option will show
 
-            return res.render('imageuplods',{ //we will send the one more form for the image uplods only
-                allinfo : isauthenticateUser
-                ,FormTitle: "Owner`s Signature"
-                ,jsonData : base64encode(req.params.userdata)// this is the information of the user in string and encoded form
-                ,crypted : base64encode(req.params.userid) //this is the id of user in data base,
-                ,ownerImginfo : base64encode(JSON.stringify(req.file)) //this is the image information of owner pic in json ,
-                ,ownerPic :false  //owner pics option will show
-                ,ownersign : true //owner sign from option will show
-
-                 ,roomdocs :false //owner document from option will show
-                ,roomgall :false //owner room gallary from option will show
-                
-
+             ,roomdocs :false //owner document from option will show
+            ,roomgall :false //owner room gallary from option will show
             })
+            
 
-        }else
-        {
-           res.status(404).json({
-               status : false,
-               message : "data urlId and authentcation id did not match in first img upload"
-           })
-        }
-
-    }else
-    {
-        return res.redirect('/therooms/login'); //if user is not aurthorosed we will send login form
     }
+    else
+    {
+        return res.json({
+            message:"Owner image upload Error Occured . Please try latar.."
+        })
+    }
+
+}else
+{
+    return res.status(200).redirect('/therooms/login') ; //this will redirect the user for login page if not aurthorised
+}
+
 
 
 
 })
+
+
+
+//now the second form action i.e sign upload it will take user data and imf owner and sign produce
+
+//it will contains only the userdata , owner image and produce signature and show docs uplods
+
+
+router.post('/showpreview/:userid/:userData/:userimg',signatures.single('sign'),docs.single('docs'),checkAuth ,async (req,res) =>{
+ 
+    //:userid conatains id from url in of database 
+    //:userData contains the user data in the primary form
+    //:userimg containe the owner pic in encode form
+        
+        let isauthenticateUser = await req.isAurthised;//this will check the authority of user...
+        let idThrghURL = base64decode(req.params.userid);//this is the user id from the url
+        //first check the basic sequrity that is user varified or not 
+    if(isauthenticateUser)
+    {
+        if(isauthenticateUser.id == idThrghURL)//this is second level security for the user ...
+        {
+            
+            return res.status(200
+                ).render('imageuplods',{ //we will send the one more form for the image uplods only
+                allinfo : isauthenticateUser
+                ,FormTitle: "Documents"
+                ,jsonData : req.params.userData// this is the information of the user in string and encoded form
+                ,crypted : req.params.userid //this is the id of user in data base,
+                ,ownerImg: req.params.userimg//this is the user image 
+                ,ownersign :base64encode(JSON.stringify(req.file)) //this is the signature of owner produced in this routing
+                ,ownerPic :false  //owner pics option will show
+                ,ownersign : false //owner sign from option will show
+    
+                 ,roomdocs :true //owner document from option will show
+                ,roomgall :false //owner room gallary from option will show
+                })
+                
+    
+        }
+        else
+        {
+            return res.json({
+                message:"sign upload Error Occured . Please try latar.."
+            })
+        }
+    
+    }else
+    {
+        return res.status(200).redirect('/therooms/login') ; //this will redirect the user for login page if not aurthorised
+    }
+    
+    
+    
+    
+    })
+    
+
+    //now the 3rd form routing i.e docs form action 
+    //it will contains only the userdata ,ownerimg,ownersign and produce docs and show gallary rooms uplods
+
+
+router.post('/showpreview/:userid/:userData/:userimg/:usersign',docs.single('docs'),Gallaryrooms.array('roomgal' , 5),checkAuth ,async (req,res) =>{
+ 
+    //:userid conatains id from url in of database 
+    //:userData contains the user data in the primary form
+    //:userimg contains the owner pic in encode form
+    //:usersign contains the owner signature
+        
+        let isauthenticateUser = await req.isAurthised;//this will check the authority of user...
+        let idThrghURL = base64decode(req.params.userid);//this is the user id from the url
+        //first check the basic sequrity that is user varified or not 
+    if(isauthenticateUser)
+    {
+        if(isauthenticateUser.id == idThrghURL)//this is second level security for the user ...
+        {
+            
+            return res.status(200
+                ).render('imageuplods',{ //we will send the one more form for the image uplods only
+                allinfo : isauthenticateUser
+                ,FormTitle: "Room`s Images"
+                ,jsonData : req.params.userData// this is the information of the user in string and encoded form
+                ,crypted : req.params.userid //this is the id of user in data base,
+                ,ownerImg: req.params.userimg//this is the user img
+                ,ownersign :req.params.usersign //this is the signature of owner 
+                ,ownerdocs : base64encode(JSON.stringify(req.file))//this is the doc produced in this routing
+                ,ownerPic :false  //owner pics option will show
+                ,ownersign : false //owner sign from option will show
+    
+                 ,roomdocs :false //owner document from option will show
+                ,roomgall :true//owner room gallary from option will show
+                })
+                
+    
+        }
+        else
+        {
+            return res.json({
+                message:"docs upload Error Occured . Please try latar.."
+            })
+        }
+    
+    }else
+    {
+        return res.status(200).redirect('/therooms/login') ; //this will redirect the user for login page if not aurthorised
+    }
+    
+    
+    
+    
+    })
+    
+
+    //now for the 4th form action routing page i.e room gallary image uploads forn action
+    //it will contains only the userdata ,ownerimg,ownersign ,docs and produce room gallray and show preview form
+
+
+router.post('/showpreview/:userid/:userData/:userimg/:usersign/:userdocs',Gallaryrooms.array('roomgal' , 5),checkAuth ,async (req,res) =>{
+ 
+    //:userid conatains id from url in of database 
+    //:userData contains the user data in the primary form
+    //:userimg contains the owner pic in encode form
+    //:usersign contains the owner signature
+    //:userdocs contains documents of the room
+        
+        let isauthenticateUser = await req.isAurthised;//this will check the authority of user...
+        let idThrghURL = base64decode(req.params.userid);//this is the user id from the url
+        //first check the basic sequrity that is user varified or not 
+    if(isauthenticateUser)
+    {
+        if(isauthenticateUser.id == idThrghURL)//this is second level security for the user ...
+        {
+
+            return res.json(
+                {
+                message:req.params.userid
+                ,data:req.params.userimg,
+                img:req.params.userData,
+                sign:req.params.userdocs,
+                docs:req.params.usersign,
+                gaal: req.files
+                }
+            )
+            
+    
+                
+    
+        }
+        else
+        {
+            return res.json({
+                message:"Owner image upload Error Occured . Please try latar.."
+            })
+        }
+    
+    }else
+    {
+        return res.status(200).redirect('/therooms/login') ; //this will redirect the user for login page if not aurthorised
+    }
+    
+    
+    
+    
+    })
+
 module.exports = router;

@@ -90,42 +90,43 @@ block content
 
     
     .container
-        h4.display-6.bg-light.m-2 Image Uplods (#{FormTitle})
+      h4.display-6.bg-light.m-2 Image Uplods (#{FormTitle})
 
-        if (ownerPic)
-          form.container.form-control(action=`/therooms/roomsregistration/showpreview/${crypted}/${jsonData}/?uploadedimages` method='POST' novalidate='' enctype='multipart/form-data')
-            .row.g-3.m-3
-                .col-md-6
-                  label.bg-light.m-3(for="owner") Owner`s Image
-                  input.form-control(type="file", name="owner" id="owner" required='')
+      if (ownerPic)
+        form.container.form-control(action=`/therooms/roomsregistration/showpreview/${crypted}/${jsonData}/?uploadedimages` method='POST' novalidate='' enctype='multipart/form-data')
+          .row.g-3.m-3
+              .col-md-6
+                label.bg-light.m-3(for="owner") Owner`s Image
+                input.form-control(type="file", name="owner" id="owner" required='')
                 
-                button.btn.btn-success(value='submit') Next Upload (1/4)
+              button.btn.btn-success(value='submit') Next Upload (1/4)
 
                    
-        if (ownersign)
-          form.container.form-control(action=`/therooms/roomsregistration/showpreview/${crypted}/${jsonData}/?uploadedimages` method='POST' novalidate='' enctype='multipart/form-data')
-            .row.g-3.m-3
-                .col-md-6
-                  label.bg-light.m-3(for="owner") Owner`s Signature
-                  input.form-control(type="file", name="sign" id="owner" required='')
-                button.btn.btn-success(value='submit') Next Upload (2/4)
+      if (ownersign)
+        form.container.form-control(action=`/therooms/roomsregistration/showpreview/${crypted}/${jsonData}/${ownerImg}/?uploadedimages` method='POST' novalidate='' enctype='multipart/form-data')
+          .row.g-3.m-3
+              .col-md-6
+                label.bg-light.m-3(for="owner") Owner`s Signature
+                input.form-control(type="file", name="sign" id="owner" required='')
+              button.btn.btn-success(value='submit') Next Upload (2/4)
 
-        if (roomdocs)
-          form.container.form-control(action=`/therooms/roomsregistration/showpreview/${crypted}/${jsonData}/?uploadedimages` method='POST' novalidate='' enctype='multipart/form-data')
-            .row.g-3.m-3
-                .col-md-6
-                    label.bg-light.m-3(for="owner") Documents
-                    input.form-control(type="file", name="docs" id="owner" required='')
-                button.btn.btn-success(value='submit') Next Upload (3/4)
+      if (roomdocs)
+        form.container.form-control(action=`/therooms/roomsregistration/showpreview/${crypted}/${jsonData}/${ownerImg}/${ownersign}/?uploadedimages` method='POST' novalidate='' enctype='multipart/form-data')
+          .row.g-3.m-3
+              .col-md-6
+                label.bg-light.m-3(for="owner") Documents
+                input.form-control(type="file", name="docs" id="owner" required='')
+              button.btn.btn-success(value='submit') Next Upload (3/4)
 
-        if (roomgall)
-          form.container.form-control(action=`/therooms/roomsregistration/showpreview/${crypted}/${jsonData}/?uploadedimages` method='POST' novalidate='' enctype='multipart/form-data')
-            .row.g-3.m-3
-                .col-md-6
-                    label.bg-light.m-3(for="owner") Rooms Images
-                    input.form-control(type="file", name="roomgal" id="owner" required='')
-                button.btn.btn-success(value='submit') Final Submit
+      if (roomgall)
+        form.container.form-control(action=`/therooms/roomsregistration/showpreview/${crypted}/${jsonData}/${ownerImg}/${ownersign}/${ownerdocs}/?uploadedimages` method='POST' novalidate='' enctype='multipart/form-data')
+          .row.g-3.m-3
+              .col-md-6
+                  label.bg-light.m-3(for="owner") Rooms Images
+                  input.form-control(type="file", multiple  accept='image/*'  name="roomgal" id="owner" required='')
+              button.btn.btn-success(value='submit') Preview And Submit
 
-    .container
 
-        button.btn.btn-warning.m-3(onclick ="history.go(-1)") Edit Form
+    //- .container
+      //- button.btn.btn-warning.m-3(onclick ="history.go(-1)") Edit Form
+ 
