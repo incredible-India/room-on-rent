@@ -111,7 +111,7 @@ block content
               button.btn.btn-success(value='submit') Next Upload (2/4)
 
       if (roomdocs)
-        form.container.form-control(action=`/therooms/roomsregistration/showpreview/${crypted}/${jsonData}/${ownerImg}/${ownersign}/?uploadedimages` method='POST' novalidate='' enctype='multipart/form-data')
+        form.container.form-control(action=`/therooms/roomsregistration/showpreview/${crypted}/${jsonData}/${ownerImg}/${ownerSign}/?uploadedimages` method='POST' novalidate='' enctype='multipart/form-data')
           .row.g-3.m-3
               .col-md-6
                 label.bg-light.m-3(for="owner") Documents
@@ -119,7 +119,7 @@ block content
               button.btn.btn-success(value='submit') Next Upload (3/4)
 
       if (roomgall)
-        form.container.form-control(action=`/therooms/roomsregistration/showpreview/${crypted}/${jsonData}/${ownerImg}/${ownersign}/${ownerdocs}/?uploadedimages` method='POST' novalidate='' enctype='multipart/form-data')
+        form.container.form-control(action=`/therooms/roomsregistration/showpreview/${crypted}/${jsonData}/${ownerImg}/${ownerSign}/${ownerdocs}/?uploadedimages` method='POST' novalidate='' enctype='multipart/form-data')
           .row.g-3.m-3
               .col-md-6
                   label.bg-light.m-3(for="owner") Rooms Images

@@ -10,6 +10,7 @@ const fs = require('fs');//file system module ,helps to store the data
 const checkAuth = require('./../authentication/auth'); //this is the auth code for the user
 const multer = require('multer');//for the uploading the image 
 const {base64decode ,base64encode} = require('nodejs-base64');//this will encode and decode the informations used in url
+const { JsonWebTokenError } = require('jsonwebtoken');
 
 
 // useing middlewaras 
@@ -272,7 +273,7 @@ router.post('/showpreview/:userid/:userData/:userimg',signatures.single('sign'),
     {
         if(isauthenticateUser.id == idThrghURL)//this is second level security for the user ...
         {
-            
+           
             return res.status(200
                 ).render('imageuplods',{ //we will send the one more form for the image uplods only
                 allinfo : isauthenticateUser
@@ -280,7 +281,7 @@ router.post('/showpreview/:userid/:userData/:userimg',signatures.single('sign'),
                 ,jsonData : req.params.userData// this is the information of the user in string and encoded form
                 ,crypted : req.params.userid //this is the id of user in data base,
                 ,ownerImg: req.params.userimg//this is the user image 
-                ,ownersign :base64encode(JSON.stringify(req.file)) //this is the signature of owner produced in this routing
+                ,ownerSign :base64encode(JSON.stringify(req.file)) //this is the signature of owner produced in this routing
                 ,ownerPic :false  //owner pics option will show
                 ,ownersign : false //owner sign from option will show
     
@@ -326,6 +327,7 @@ router.post('/showpreview/:userid/:userData/:userimg/:usersign',docs.single('doc
     {
         if(isauthenticateUser.id == idThrghURL)//this is second level security for the user ...
         {
+            console.log(req.params.usersign);
             
             return res.status(200
                 ).render('imageuplods',{ //we will send the one more form for the image uplods only
@@ -334,7 +336,7 @@ router.post('/showpreview/:userid/:userData/:userimg/:usersign',docs.single('doc
                 ,jsonData : req.params.userData// this is the information of the user in string and encoded form
                 ,crypted : req.params.userid //this is the id of user in data base,
                 ,ownerImg: req.params.userimg//this is the user img
-                ,ownersign :req.params.usersign //this is the signature of owner 
+                ,ownerSign :req.params.usersign //this is the signature of owner 
                 ,ownerdocs : base64encode(JSON.stringify(req.file))//this is the doc produced in this routing
                 ,ownerPic :false  //owner pics option will show
                 ,ownersign : false //owner sign from option will show
@@ -367,32 +369,38 @@ router.post('/showpreview/:userid/:userData/:userimg/:usersign',docs.single('doc
     //it will contains only the userdata ,ownerimg,ownersign ,docs and produce room gallray and show preview form
 
 
-router.post('/showpreview/:userid/:userData/:userimg/:usersign/:userdocs',Gallaryrooms.array('roomgal' , 5),checkAuth ,async (req,res) =>{
+router.post('/showpreview/:userid/:userData/:userimg/:usersign/:userdocs',Gallaryrooms.array('roomgal' , 5), checkAuth ,async (req,res) =>{
  
     //:userid conatains id from url in of database 
     //:userData contains the user data in the primary form
     //:userimg contains the owner pic in encode form
     //:usersign contains the owner signature
     //:userdocs contains documents of the room
-        
+    //but in this routing page we will show the user preview
         let isauthenticateUser = await req.isAurthised;//this will check the authority of user...
         let idThrghURL = base64decode(req.params.userid);//this is the user id from the url
         //first check the basic sequrity that is user varified or not 
     if(isauthenticateUser)
     {
         if(isauthenticateUser.id == idThrghURL)//this is second level security for the user ...
-        {
+           
+        
+            { 
 
-            return res.json(
-                {
-                message:req.params.userid
-                ,data:req.params.userimg,
-                img:req.params.userData,
-                sign:req.params.userdocs,
-                docs:req.params.usersign,
-                gaal: req.files
-                }
-            )
+                return res.status(200).render('previewform',{
+                    title : "Preview: The Rooms",
+                    allinfo : isauthenticateUser
+                })
+            // return res.json(
+            //     {
+            //     message:base64decode(req.params.userid)
+            //     ,data:JSON.parse(base64decode(req.params.userimg)),
+            //     img:JSON.parse(base64decode(req.params.userData)),
+            //     sign:JSON.parse(base64decode(req.params.userdocs)),
+            //     docs:JSON.parse(base64decode(req.params.usersign)),
+            //     gaal: req.files
+            //     }
+            
             
     
                 
@@ -401,7 +409,7 @@ router.post('/showpreview/:userid/:userData/:userimg/:usersign/:userdocs',Gallar
         else
         {
             return res.json({
-                message:"Owner image upload Error Occured . Please try latar.."
+                message:"Rooms image upload Error Occured . Please try latar.."
             })
         }
     
