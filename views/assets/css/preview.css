@@ -1,0 +1,28 @@
+.container-fluid {
+    margin-top: 20px;
+    /* text-align: center; */
+}
+.pi{
+    text-align: center;
+}
+
+
+.maindiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-top: 10px;
+
+}
+
+.maindata{
+    display: flex;
+    flex-direction: row;
+
+
+}
+.Mkrow{
+    display: flex ;
+    flex-direction: column;
+    margin-top: 10px;
+}

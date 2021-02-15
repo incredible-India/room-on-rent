@@ -6,12 +6,16 @@ block title
 block style
     style
         include ./assets/css/profile.css 
+        include ./assets/css/nav.css
+        include ./assets/css/preview.css
 
 block script
   script
     include ./assets/javascript/profile.js
 
 block content
+
+    -var  ownerimage = ownerimage
 
     -var allinfo = allinfo //userinformation
 
@@ -55,16 +59,18 @@ block content
                 a.nav-link(href="/contactUs")
                   i.fas.fa-phone
                   |  Contact us
-              
+              li.nav-item
+                a.nav-link(href="#")
+                  img#img.img-fluid(src="data:" + allinfo.img.ContentType + "; base64 ," + allinfo.img.data.toString('base64'), alt="User image" )
               li.nav-item.dropdown
                 a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false")
                  
                   |  #{allinfo.fname}
                 ul.dropdown-menu(aria-labelledby="navbarDropdownMenuLink")
                   li
-                    a.dropdown-item(href="/therooms/" + "userProfile/" + allinfo._id + "/?" + userProfile)
-                      i.fas.fa-info-circle
-                      |  Update Info
+                    a.dropdown-item(href="/therooms/" + "userProfile/" + id + "/?" + userProfile)
+                      i.fas.fa-user
+                      |  Profile
                   li
                     a.dropdown-item(href="/therooms/newusers")
                       i.fas.fa-heart
@@ -73,10 +79,7 @@ block content
                     a.dropdown-item(href="#")
                       i.fas.fa-th-list
                       |  My Booking
-                  li
-                    a.dropdown-item(href="/therooms/user/feedback")
-                      i.fas.fa-pen
-                      |  FeedBack
+                  
                   li
                     a.dropdown-item(href="/therooms/user" + "/logout/?" + urldataForLgout )
                       i.fas.fa-user-times
@@ -90,3 +93,165 @@ block content
             form.d-flex
               input.form-control.me-2(type="search" placeholder="Search (location)" aria-label="Search")
               button.btn.btn-outline-success(type="submit") Search
+
+
+    .container
+      h3.display-3 Form Preview
+      hr
+    .container-fluid.maindiv
+      h3.container.display-5 
+        em Personal Information 
+      .container.maindata 
+        .container.Mkrow 
+          h4.bg-light First Name 
+          h5 #{data.fname} 
+        .container.Mkrow
+          h4.bg-light First Name 
+          h5 #{data.lname}
+
+      
+      .container.maindata 
+        .container.Mkrow 
+          h4.bg-light Father`s Name
+          h5 #{data.fathername} 
+        .container.Mkrow
+          h4.bg-light D.O.B 
+          h5 #{data.dob}
+
+
+
+      .container.maindata 
+        .container.Mkrow 
+          h4.bg-light  Gender
+          h5 #{data.gender}
+        .container.Mkrow
+          h4.bg-light House Number/Name 
+          h5 #{data.roomname}
+
+    
+      h3.container.display-5 
+        em Contact Details
+
+      .container.maindata 
+        .container.Mkrow 
+          h4.bg-light  Mobile
+          h5 #{data.mobile}
+        .container.Mkrow
+          h4.bg-light Alter Mobile
+          h5 #{data.altmobile}
+
+
+      .container.maindata 
+        .container.Mkrow 
+          h4.bg-light  Email
+          h5 #{data.email}
+
+
+      h3.container.display-5 
+        em Address Details
+
+      .container.maindata 
+        .container.Mkrow 
+          h4.bg-light  State
+          h5 #{data.state}
+        .container.Mkrow
+          h4.bg-light City
+          h5 #{data.city}
+
+
+      .container.maindata 
+        .container.Mkrow 
+          h4.bg-light  Village
+          h5 #{data.village}
+        .container.Mkrow 
+          h4.bg-light  Zip
+          h5 #{data.zip}
+
+      .container.maindata 
+        .container.Mkrow 
+          h4.bg-light  Address
+          h5 #{data.address}
+
+
+      h3.container.display-5 
+        em Room`s Details
+
+      .container.maindata 
+        .container.Mkrow 
+          h4.bg-light  Rooms`s For
+          h5 #{data.roomfor}
+        .container.Mkrow
+          h4.bg-light Room Type
+          h5 #{data.roomtype}
+
+
+      .container.maindata 
+        .container.Mkrow 
+          h4.bg-light  Washroom
+          h5 #{data.washrooms}
+        .container.Mkrow 
+          h4.bg-light  Kitchen
+          h5 #{data.kitchen}
+
+
+      .container.maindata 
+        .container.Mkrow 
+          h4.bg-light  Person Type
+          h5 #{data.persontype}
+        .container.Mkrow 
+          h4.bg-light  Room Facilities
+          h5 #{data.roomfacilty}
+
+      .container.maindata 
+        .container.Mkrow 
+          h4.bg-light  Room Restriction
+          h5 #{data.roomrestri}
+        .container.Mkrow 
+          h4.bg-light  About Rooms
+          h5 #{data.roominfo}
+
+
+      
+      h3.container.display-5 
+        em Rent Details
+
+      .container.maindata 
+        .container.Mkrow 
+          h4.bg-light  Electric Bill
+          h5 #{data.electricbill}
+        .container.Mkrow
+          h4.bg-light Monthly Rent
+          h5 #{data.monthlyrent}
+
+
+      .container.maindata 
+        .container.Mkrow 
+          h4.bg-light  Down Payment
+          h5 #{data.downpayment}
+        .container.Mkrow
+          h4.bg-light Returnable price
+          h5 #{data.rtndwn}
+
+      .container.maindata 
+        .container.Mkrow 
+          h4.bg-light  Any Other Info 
+          h5 #{data.rentinfo}
+
+
+      .container.maindata 
+        .container.Mkrow 
+          img.img-fluid(src = `./../${ownerimage.path}` )
+
+
+      
+
+        
+
+     
+
+
+      
+      
+
+
+    

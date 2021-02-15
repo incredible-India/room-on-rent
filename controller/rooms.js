@@ -379,6 +379,7 @@ router.post('/showpreview/:userid/:userData/:userimg/:usersign/:userdocs',Gallar
     //but in this routing page we will show the user preview
         let isauthenticateUser = await req.isAurthised;//this will check the authority of user...
         let idThrghURL = base64decode(req.params.userid);//this is the user id from the url
+        console.log(JSON.parse(base64decode(req.params.userimg)));
         //first check the basic sequrity that is user varified or not 
     if(isauthenticateUser)
     {
@@ -389,7 +390,9 @@ router.post('/showpreview/:userid/:userData/:userimg/:usersign/:userdocs',Gallar
 
                 return res.status(200).render('previewform',{
                     title : "Preview: The Rooms",
-                    allinfo : isauthenticateUser
+                    allinfo : isauthenticateUser,
+                    data:JSON.parse(base64decode(req.params.userData)),
+                    ownerimage:JSON.parse(base64decode(req.params.userimg))
                 })
             // return res.json(
             //     {
@@ -399,7 +402,7 @@ router.post('/showpreview/:userid/:userData/:userimg/:usersign/:userdocs',Gallar
             //     sign:JSON.parse(base64decode(req.params.userdocs)),
             //     docs:JSON.parse(base64decode(req.params.usersign)),
             //     gaal: req.files
-            //     }
+            //     })
             
             
     
