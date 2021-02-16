@@ -15,7 +15,7 @@ block script
 
 block content
 
-    -var  ownerimage = ownerimage
+    -var  ownerimages = ownerimage
 
     -var allinfo = allinfo //userinformation
 
@@ -240,7 +240,8 @@ block content
 
       .container.maindata 
         .container.Mkrow 
-          img.img-fluid(src = `./../${ownerimage.path}` )
+          
+    img.img-fluid(src= './../' + ownerimage.path , alt="image")
 
 
       

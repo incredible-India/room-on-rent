@@ -10,7 +10,7 @@ const fs = require('fs');//file system module ,helps to store the data
 const checkAuth = require('./../authentication/auth'); //this is the auth code for the user
 const multer = require('multer');//for the uploading the image 
 const {base64decode ,base64encode} = require('nodejs-base64');//this will encode and decode the informations used in url
-const { JsonWebTokenError } = require('jsonwebtoken');
+// const { JsonWebTokenError } = require('jsonwebtoken');
 
 
 // useing middlewaras 
@@ -390,9 +390,10 @@ router.post('/showpreview/:userid/:userData/:userimg/:usersign/:userdocs',Gallar
 
                 return res.status(200).render('previewform',{
                     title : "Preview: The Rooms",
-                    allinfo : isauthenticateUser,
-                    data:JSON.parse(base64decode(req.params.userData)),
-                    ownerimage:JSON.parse(base64decode(req.params.userimg))
+                    allinfo : isauthenticateUser,  //bakend auth page return user data
+                    data:JSON.parse(base64decode(req.params.userData)),//contains the data of the user in form
+                    ownerimage:JSON.parse(base64decode(req.params.userimg)),//image of the owner
+                    signatureOwner : JSON.parse(base64decode(req.params.usersign))//signature image
                 })
             // return res.json(
             //     {
