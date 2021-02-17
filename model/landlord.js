@@ -1,6 +1,8 @@
 //this is the user who wants to keep their home for rent
+require('dotenv').config();//for the reading data from the dotenv file
 const mongoose = require('mongoose');//mongodb database
 const users  = require('./newUser');
+const jwt =require('jsonwebtoken');
 
 
 
@@ -158,9 +160,28 @@ let schema = mongoose.Schema;
             type:String
             
         }
+        ,tokenSchema : [{tokendbs:{
+            type:String,
+            required:true
+        }}]
  })
 
  
+
+ //we are not usein this token latar when we will make the owner sign option then 
+
+newHome.methods.genratetokenforowner =function (){
+    //we are genetrating the token in the schema
+    const tokenGenratefortheowner = jwt.sign({_id :this._id},process.env.SECRET_KEY) ;//this will generate the token 
+
+    this.tokenSchema = this.tokenSchema.concat( {tokendbs : tokenGenratefortheowner} );
+
+
+    this.save();
+    
+    return tokenGenratefortheowner;
+
+}
 
 
  module.exports =mongoose.model('rooms',newHome);

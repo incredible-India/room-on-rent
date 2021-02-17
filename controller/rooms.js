@@ -13,6 +13,7 @@ const {base64decode ,base64encode} = require('nodejs-base64');//this will encode
 // const { json } = require('body-parser');
 const roomInfomration = require('./../model/landlord');//this is the informations of owner 
 const userinfomation = require('./../model/newUser'); //this is the database of users 
+const jwt = require('jsonwebtoken');//for saving the cookies web token
 
 // const { JsonWebTokenError } = require('jsonwebtoken');
 
@@ -556,7 +557,14 @@ router.post('/showpreview/:userid/:userData/:userimg/:usersign/:userdocs',Gallar
                         })
                     }
 
-                    return res.redirect('/');
+                    //now we will generate the token for the owner informations and its authenticate the user
+
+                    const tokenForUser = newOwner.genratetokenforowner()// it will return a token latar we will use it and save it in cookies 
+
+                    
+
+
+                    return res.status(200).redirect(`/therooms/roomsregistration/myroom/${base64encode(JSON.stringify(isAuthenticate._id))}/${tokenForUser}`) //this will show the preview of the saved his rooms
 
                 })
                
@@ -578,6 +586,34 @@ router.post('/showpreview/:userid/:userData/:userimg/:usersign/:userdocs',Gallar
             return res.status(200).redirect('/therooms/login') ; //this will redirect the user for login page if not aurthorised
         }
 
+
+    })
+
+
+
+    //now the routing for the rooms view of the owner after felling the form of room registration..
+
+    router.get('/myroom/:userid/:tokenowner',checkAuth,async (req,res)=>{
+
+        let isauthenticateduser = await req.isAurthised;
+
+        if(isauthenticateduser)
+        {
+
+            const varifyuser = jwt.verify(req.params.tokenowner,process.env.SECRET_KEY);//it will return the owner infomation which is to be saved
+
+            console.log(varifyuser);
+
+            //here we are getting the onwer id of database now we have to be verified the owner and then we need to show the data to our user and for the profile we have to change the buttons
+
+
+        }else
+        {
+            return res.status(200).redirect('/therooms/login') ; //this will redirect the user for login page if not aurthorised
+
+        }
+
+        res.send("The Rooms Welcomes You")
 
     })
 module.exports = router;

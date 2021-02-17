@@ -2,6 +2,7 @@
 require('dotenv').config()//read the data from .env file
 const jwt  =require('jsonwebtoken');//json web token for authentication
 const schemaFileOfusers = require('./../model/newUser');
+const ownerInformationAndItsValidations =require('./../model/landlord');
 
 
 
@@ -40,5 +41,23 @@ const schemaFileOfusers = require('./../model/newUser');
 
 
 }
+
+
+// function ownerAuthentications(req,res,next)
+// {
+//     try{
+
+//         let OwnerInformation =ownerInformationAndItsValidations.fin
+
+//     }catch(error)
+//     {
+//         return res.json({
+//             message :"Owner Authentication Error in Auth File",
+//             error :error
+//         })
+//     }
+
+
+// }
 
 module.exports = authUser ; 

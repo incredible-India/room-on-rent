@@ -5,3 +5,4 @@ solution url me kuch random sa string daalna hai
 
 3: back button has to be stop in the form for registration and login
 4:email make unique in ladlord schema
+5:we already genrated a token in the owner database when we will use owner sign in optioon than we will use it
