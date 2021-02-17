@@ -20,7 +20,7 @@ let schema = mongoose.Schema;
         email : {
             type:String,
             required:true,
-            unique:true
+           
         },
         mobile: {
             type:Number,
@@ -55,7 +55,7 @@ let schema = mongoose.Schema;
             type:String,
             required:true
         },
-        Landimg : 
+        landimg : 
            {
                 data:Buffer,
                 ContentType : String
@@ -73,11 +73,11 @@ let schema = mongoose.Schema;
 ,
 
         homeimg: [
-            {home : {
-                data:Buffer,
-                ContentType : String
-            }
-            }
+            // {home : {
+            //     data:Buffer,
+            //     ContentType : String
+            // }
+            // }
         ]
 
         ,

@@ -241,7 +241,25 @@ block content
       .container.maindata 
         .container.Mkrow 
           
-    img.img-fluid(src= './../' + ownerimage.path , alt="image")
+    img.img-fluid(src= '/../' + ownerimage.path , alt="image")
+
+
+    .container 
+      button.btn.btn-warning(onclick="history.go(-1)") Edit Form
+      br
+      hr
+
+    .container 
+      form.formdata.form-control(action=`/therooms/roomsregistration/redirecting/${userid}/${userdata}/${userimg}/${usersign}/${userdocs}/${roomgall}` method="POST") 
+        .maindivform
+          input(type="checkbox" id='agree' required)
+          label.agrrement(for="agree") Agree the terms and conditions 
+      
+        br
+        .buttondata
+          button.btn.btn-success(value = "submit") Final Submission 
+          br  
+          button.btn.btn-primary Terms & Conditions
 
 
       

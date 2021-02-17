@@ -4,3 +4,4 @@
 solution url me kuch random sa string daalna hai 
 
 3: back button has to be stop in the form for registration and login
+4:email make unique in ladlord schema

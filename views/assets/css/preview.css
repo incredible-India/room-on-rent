@@ -26,3 +26,22 @@
     flex-direction: column;
     margin-top: 10px;
 }
+
+.agrrement{
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.formdata{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttondata{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

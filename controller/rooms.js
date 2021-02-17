@@ -10,6 +10,10 @@ const fs = require('fs');//file system module ,helps to store the data
 const checkAuth = require('./../authentication/auth'); //this is the auth code for the user
 const multer = require('multer');//for the uploading the image 
 const {base64decode ,base64encode} = require('nodejs-base64');//this will encode and decode the informations used in url
+// const { json } = require('body-parser');
+const roomInfomration = require('./../model/landlord');//this is the informations of owner 
+const userinfomation = require('./../model/newUser'); //this is the database of users 
+
 // const { JsonWebTokenError } = require('jsonwebtoken');
 
 
@@ -379,7 +383,7 @@ router.post('/showpreview/:userid/:userData/:userimg/:usersign/:userdocs',Gallar
     //but in this routing page we will show the user preview
         let isauthenticateUser = await req.isAurthised;//this will check the authority of user...
         let idThrghURL = base64decode(req.params.userid);//this is the user id from the url
-        console.log(JSON.parse(base64decode(req.params.userimg)));
+        
         //first check the basic sequrity that is user varified or not 
     if(isauthenticateUser)
     {
@@ -394,6 +398,16 @@ router.post('/showpreview/:userid/:userData/:userimg/:usersign/:userdocs',Gallar
                     data:JSON.parse(base64decode(req.params.userData)),//contains the data of the user in form
                     ownerimage:JSON.parse(base64decode(req.params.userimg)),//image of the owner
                     signatureOwner : JSON.parse(base64decode(req.params.usersign))//signature image
+                    ,userid :req.params.userid //contains userid 
+                    ,userdata : req.params.userData //containes user data rncode form 
+                    ,userimg:req.params.userimg, //user image encode form
+                    usersign : req.params.usersign //usersign encoded form
+                    ,userdocs :req.params.userdocs //user document information
+                    ,roomgall : base64encode(JSON.stringify(req.files)) //rooms images
+
+
+
+
                 })
             // return res.json(
             //     {
@@ -427,4 +441,143 @@ router.post('/showpreview/:userid/:userData/:userimg/:usersign/:userdocs',Gallar
     
     })
 
+
+    //for the final submission nad saving it into the data base
+
+    router.post('/redirecting/:userid/:userdata/:userimg/:usersign/:userdocs/:roomgall',checkAuth , async(req,res) =>{
+
+        let isAuthenticate = await req.isAurthised; //this is data of authentication page
+        let urlid = base64decode(req.params.userid);//this is the id of user through url
+        let userdata = JSON.parse(base64decode(req.params.userdata));//owner information
+        let userimage = JSON.parse(base64decode(req.params.userimg));//owner image
+        let usersign = JSON.parse(base64decode(req.params.usersign));//owner Sign
+        let userdocs = JSON.parse(base64decode(req.params.userdocs));//owner document
+        let roomgall = JSON.parse(base64decode(req.params.roomgall));//room gallary
+
+        let ABlankObjectToSaveImg ={};//in this we will save the room images i.e roomgall
+        let ABlankArrayToSaveImg = []; //in this we will save above object that contains room images
+        
+
+        for(i in roomgall)
+        {
+           ABlankObjectToSaveImg.data = fs.readFileSync(path.join(__dirname,'./../' ,roomgall[i].path)); //images added in objects
+           ABlankObjectToSaveImg.ContentType = "image/jpg"; //imagesType added in object
+
+           ABlankArrayToSaveImg.push(ABlankObjectToSaveImg);//save the object in array which contains room images
+
+        
+
+            console.log(roomgall[i].path);
+        }
+
+        console.log(ABlankArrayToSaveImg);
+
+        //for the primary sequrity
+        if(isAuthenticate)
+        {
+            if(urlid == isAuthenticate._id)
+            {
+                //saveing the data in database 
+
+                    let newOwner  = new roomInfomration({
+
+                        fname : userdata.fname,
+                        lname:userdata.lname,
+                        email:userdata.email,
+                        mobile:userdata.mobile,
+                        altermobile:userdata.altmobile,
+                        state:userdata.state,
+                        city:userdata.city,
+                        zip:userdata.zip,
+                        address:userdata.address,
+                        fathername:userdata.fathername,
+                        restriction:userdata.roomrestri,
+                        roomfor:userdata.roomfor,
+                        roomtype:userdata.roomtype,
+                        roomrent:userdata.monthlyrent,
+                        gender:userdata.gender,
+                        dob:userdata.dob,
+                        village:userdata.village,
+                        washroom:userdata.washrooms,
+                        kitchen:userdata.kitchen,
+                        persontype:userdata.persontype,
+                        roomfacility:userdata.roomfacilty,
+                        anyotherinforoom :userdata.roominfo,
+                        electricbill :userdata.electricbill,
+                        downpayment : userdata.downpayment,
+                        returndwnpayment:userdata.rtndwn,
+                        anyotherinforent:userdata.rentinfo,
+                        roomname : userdata.roomname
+                        ,throughid : isAuthenticate._id,
+                        landimg: {
+                            data: fs.readFileSync(path.join(__dirname,'./../' ,userimage.path))
+                            , ContentType: "image/jpg"
+                        }
+
+                        ,  documentImg: {
+                            data: fs.readFileSync(path.join(__dirname,'./../' ,userdocs.path))
+                            , ContentType: "image/jpg"
+                        },
+
+                        landsignature:{
+                            data: fs.readFileSync(path.join(__dirname,'./../' ,usersign.path))
+                            , ContentType: "image/jpg"
+                        }
+                            ,
+                        //now we have to save the room images in data base
+
+                        homeimg:{
+                            
+                                ABlankArrayToSaveImg
+                        
+                        }
+
+                    })
+
+                    //saving the data in background
+            newOwner.save((err,data)=>{
+
+                if(err)
+                {
+                    return res.json({
+                        message:"Failed to savein database",
+                        error:err
+                    })
+                }
+                
+                //now we updated the data so that user can see his registred home 
+
+                userinfomation.findOneAndUpdate({_id :urlid},{service :true},(error,dataupdates)=>{
+
+                    if(error)
+                    {
+                        return res.json({
+                            message :"Updating Services Failed Try Latar"
+                        })
+                    }
+
+                    return res.redirect('/');
+
+                })
+               
+
+
+            })
+
+            }else
+            {
+                return res.json({
+                    message: "final submission error"
+                })
+
+            }
+
+
+        }else
+        {
+            return res.status(200).redirect('/therooms/login') ; //this will redirect the user for login page if not aurthorised
+        }
+
+
+    })
 module.exports = router;
