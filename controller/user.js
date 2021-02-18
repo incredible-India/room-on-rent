@@ -239,7 +239,7 @@ router.get('/userProfile/:id',checkAuth.authUser ,async (req,res) =>{
     let UserAuth = await req.isAurthised;  //it will return either document of user or null
 
     let givenSirvices = await  ownerinfo.findOne({throughid : UserAuth._id}) //first we will find and verify the user  that owner is exist or not
-    console.log(givenSirvices);
+   
     if(givenSirvices == null)
     {
         UserAuth.service = false; //if user not exist it returns false

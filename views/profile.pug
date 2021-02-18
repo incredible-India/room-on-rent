@@ -136,10 +136,10 @@ block content
     .container.buttons
         button.btn.btn-primary Edit Information
         if (allinfo.service)
-          button.btn.btn-success(type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop")
+          button.btn.btn-warning(type='button' data-bs-toggle='modal' data-bs-target='#staticBackdrop1')
             | My Registred Home
         else 
-          button.btn.btn-success(type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop")
+          button.btn.btn-warning(type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop")
             |  Register My Home
 
         button.btn.btn-danger Log out
@@ -164,6 +164,31 @@ block content
               .modal-footer
                 button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Close
                 button.btn.btn-primary(value="submit") Register
+
+
+    //Modal
+ 
+    // Button trigger modal
+    
+    // Modal registred home to view it
+    #staticBackdrop1.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true')
+      .modal-dialog
+        .modal-content
+          .modal-header
+            h5#staticBackdropLabel.modal-title
+              i.fas.fa-key  Password
+            button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+          .modal-body
+
+            form(action="#", method="post") 
+              input.form-control(type="password",placeholder="password")
+              button.btn.btn-success(value="submit") View
+          
+          .modal-footer
+            button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Close
+            
+
+                
 
 
 

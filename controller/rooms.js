@@ -514,7 +514,7 @@ router.post('/showpreview/:userid/:userData/:userimg/:usersign/:userdocs',Gallar
                             data: fs.readFileSync(path.join(__dirname,'./../' ,userimage.path))
                             , ContentType: "image/jpg"
                         }
-
+                        
                         ,  documentImg: {
                             data: fs.readFileSync(path.join(__dirname,'./../' ,userdocs.path))
                             , ContentType: "image/jpg"
@@ -596,19 +596,38 @@ router.post('/showpreview/:userid/:userData/:userimg/:usersign/:userdocs',Gallar
     router.get('/myroom/:userid/:tokenowner',checkAuth.authUser,checkAuth.ownerAuthentications,async (req,res)=>{
 
         let isauthenticateduser = await req.isAurthised;
+
+        let urlId = JSON.parse(base64decode(req.params.userid)) ;//this is the id of user
         
         let isOwner = await req.ownerAuth;//this will return whole document of owner
-
+       
         if(isauthenticateduser)
         {
+            
+            // const varifyOwner = jwt.verify(req.params.tokenowner,process.env.SECRET_KEY);//it will return the owner infomation which is to be saved, in this owner token will save give owner id unique not user id
 
-            const varifyOwner = jwt.verify(req.params.tokenowner,process.env.SECRET_KEY);//it will return the owner infomation which is to be saved, in this owner token will save give owner id unique not user id
+            if(isauthenticateduser._id == urlId) //this is the second level Authenticatation
+            {
 
-            console.log(varifyOwner);
-            console.log(await req.ownerAuth);
-
-            //here we are getting the onwer id of database now we have to be verified the owner and then we need to show the data to our user and for the profile we have to change the buttons
-            //All the sequrity Done only we have to update the informations and show the preview page..
+                if(isauthenticateduser._id == isOwner.throughid) //this is the third level sequrity
+                {
+                    return  res.status(200).render('myhome',{
+                        
+                        title : "My Home : The Rooms",
+    
+                        allinfo : isauthenticateduser
+                    })
+                }else
+                {
+                    return res.json({
+                        message :" Try Latar Server is busy now..."
+                    })
+                }
+            
+            }else
+            {
+                return res.json({message : "Failed To Show The Preview, Try Latar Your Info Has Been Saved.."})
+            }
 
         }else
         {
@@ -616,7 +635,7 @@ router.post('/showpreview/:userid/:userData/:userimg/:usersign/:userdocs',Gallar
 
         }
 
-       return  res.send("Nikal Tumhari maa ka")
+    
 
     })
 module.exports = router;
