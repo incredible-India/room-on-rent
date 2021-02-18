@@ -41,7 +41,7 @@ const port = process.env.PORT || 80;
 //routing code...
 
 //for home page
-app.get('/',CheckAurthorised, async (req, res) => {
+app.get('/muskaan.com',CheckAurthorised.authUser, async (req, res) => {
 
     try{
         

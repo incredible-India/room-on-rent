@@ -96,7 +96,7 @@ var Gallaryrooms = multer({ storage: rooms }); //for the multi room  images
 
 //for the room registration form
 
-router.get('/applicationform/:userid', checkAuth, async (req, res) => {
+router.get('/applicationform/:userid', checkAuth.authUser, async (req, res) => {
 
     let isAuthenticate = await req.isAurthised;//this will return user info or null
 
@@ -153,7 +153,7 @@ router.post('/imageuplods/:mainuserid', uploads.single('owner') ,
 
 
 
-    ], checkAuth, async (req, res) => {
+    ], checkAuth.authUser, async (req, res) => {
 
         let formValidationError = validationResult(req);
 
@@ -212,7 +212,7 @@ router.post('/imageuplods/:mainuserid', uploads.single('owner') ,
 //1st form i.e owners image uploads routing code  this action url inside the owner image uploads form only
 //it will contain only the userdata and produce userimage and show sign uplods
 
-router.post('/showpreview/:userid/:userData/',uploads.single('owner'),signatures.single('sign'),checkAuth ,async (req,res) =>{
+router.post('/showpreview/:userid/:userData/',uploads.single('owner'),signatures.single('sign'),checkAuth.authUser ,async (req,res) =>{
  
 //:userid conatains id from url in of database 
 //:userData contains the user data in the primary form
@@ -265,7 +265,7 @@ if(isauthenticateUser)
 //it will contains only the userdata , owner image and produce signature and show docs uplods
 
 
-router.post('/showpreview/:userid/:userData/:userimg',signatures.single('sign'),docs.single('docs'),checkAuth ,async (req,res) =>{
+router.post('/showpreview/:userid/:userData/:userimg',signatures.single('sign'),docs.single('docs'),checkAuth.authUser ,async (req,res) =>{
  
     //:userid conatains id from url in of database 
     //:userData contains the user data in the primary form
@@ -318,7 +318,7 @@ router.post('/showpreview/:userid/:userData/:userimg',signatures.single('sign'),
     //it will contains only the userdata ,ownerimg,ownersign and produce docs and show gallary rooms uplods
 
 
-router.post('/showpreview/:userid/:userData/:userimg/:usersign',docs.single('docs'),Gallaryrooms.array('roomgal' , 5),checkAuth ,async (req,res) =>{
+router.post('/showpreview/:userid/:userData/:userimg/:usersign',docs.single('docs'),Gallaryrooms.array('roomgal' , 5),checkAuth.authUser ,async (req,res) =>{
  
     //:userid conatains id from url in of database 
     //:userData contains the user data in the primary form
@@ -374,7 +374,7 @@ router.post('/showpreview/:userid/:userData/:userimg/:usersign',docs.single('doc
     //it will contains only the userdata ,ownerimg,ownersign ,docs and produce room gallray and show preview form
 
 
-router.post('/showpreview/:userid/:userData/:userimg/:usersign/:userdocs',Gallaryrooms.array('roomgal' , 5), checkAuth ,async (req,res) =>{
+router.post('/showpreview/:userid/:userData/:userimg/:usersign/:userdocs',Gallaryrooms.array('roomgal' , 5), checkAuth.authUser ,async (req,res) =>{
  
     //:userid conatains id from url in of database 
     //:userData contains the user data in the primary form
@@ -445,7 +445,7 @@ router.post('/showpreview/:userid/:userData/:userimg/:usersign/:userdocs',Gallar
 
     //for the final submission nad saving it into the data base
 
-    router.post('/redirecting/:userid/:userdata/:userimg/:usersign/:userdocs/:roomgall',checkAuth , async(req,res) =>{
+    router.post('/redirecting/:userid/:userdata/:userimg/:usersign/:userdocs/:roomgall',checkAuth.authUser , async(req,res) =>{
 
         let isAuthenticate = await req.isAurthised; //this is data of authentication page
         let urlid = base64decode(req.params.userid);//this is the id of user through url
@@ -593,19 +593,22 @@ router.post('/showpreview/:userid/:userData/:userimg/:usersign/:userdocs',Gallar
 
     //now the routing for the rooms view of the owner after felling the form of room registration..
 
-    router.get('/myroom/:userid/:tokenowner',checkAuth,async (req,res)=>{
+    router.get('/myroom/:userid/:tokenowner',checkAuth.authUser,checkAuth.ownerAuthentications,async (req,res)=>{
 
         let isauthenticateduser = await req.isAurthised;
+        
+        let isOwner = await req.ownerAuth;//this will return whole document of owner
 
         if(isauthenticateduser)
         {
 
-            const varifyuser = jwt.verify(req.params.tokenowner,process.env.SECRET_KEY);//it will return the owner infomation which is to be saved
+            const varifyOwner = jwt.verify(req.params.tokenowner,process.env.SECRET_KEY);//it will return the owner infomation which is to be saved, in this owner token will save give owner id unique not user id
 
-            console.log(varifyuser);
+            console.log(varifyOwner);
+            console.log(await req.ownerAuth);
 
             //here we are getting the onwer id of database now we have to be verified the owner and then we need to show the data to our user and for the profile we have to change the buttons
-
+            //All the sequrity Done only we have to update the informations and show the preview page..
 
         }else
         {
@@ -613,7 +616,7 @@ router.post('/showpreview/:userid/:userData/:userimg/:usersign/:userdocs',Gallar
 
         }
 
-        res.send("The Rooms Welcomes You")
+       return  res.send("Nikal Tumhari maa ka")
 
     })
 module.exports = router;

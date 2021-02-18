@@ -11,6 +11,7 @@ const fs = require('fs');//for file system module it help to save the image in o
 const cookieParser = require('cookie-parser');//saving the cookies
 const bcryptjs = require('bcryptjs');//for hashing the password and comparing the password
 const checkAuth = require('./../authentication/auth');//authentication for the user
+const ownerinfo = require('./../model/landlord');//owner Scema File
 
 
 
@@ -208,7 +209,7 @@ router.post('/user/login', [
 
 //now routing for logout functions
 
-router.get('/user/logout', checkAuth, async (req, res) => {
+router.get('/user/logout',checkAuth.authUser, async (req, res) => {
 
     let UserAuth = await req.isAurthised;  //it will return either document of user or null
 
@@ -233,9 +234,24 @@ router.get('/user/logout', checkAuth, async (req, res) => {
 
 
 // routing for the user profile 
-router.get('/userProfile/:id',checkAuth ,async (req,res) =>{
+router.get('/userProfile/:id',checkAuth.authUser ,async (req,res) =>{
  
     let UserAuth = await req.isAurthised;  //it will return either document of user or null
+
+    let givenSirvices = await  ownerinfo.findOne({throughid : UserAuth._id}) //first we will find and verify the user  that owner is exist or not
+    console.log(givenSirvices);
+    if(givenSirvices == null)
+    {
+        UserAuth.service = false; //if user not exist it returns false
+    }else
+    {
+        UserAuth.service = true; //if user exist it return document
+    }
+
+   await newUserdbs.findOneAndUpdate({_id : UserAuth._id},{service : UserAuth.service}) //And we will Update and save it 
+
+    // newUserdbs.save() ;  
+
     if(UserAuth)
     {
          res.status(200).render('profile',{
@@ -260,7 +276,7 @@ router.get('/userProfile/:id',checkAuth ,async (req,res) =>{
 
 //for the feedback
 
-router.get('/user/feedback',checkAuth,async(req,res)=>{
+router.get('/user/feedback',checkAuth.authUser,async(req,res)=>{
 
     let UserAuth = await req.isAurthised;  //it will return either document of user or null
     res.setHeader("Content-Type","text/html");//type of response
@@ -280,7 +296,7 @@ router.get('/user/feedback',checkAuth,async(req,res)=>{
 
 //for the home registration of user
 
-router.get('/user/newregistration',checkAuth,async (req,res)=>{
+router.get('/user/newregistration',checkAuth.authUser,async (req,res)=>{
 
   let isAurthorised = await req.isAurthised;  //again we will check that the user is aurthorised or not
 
@@ -298,7 +314,7 @@ router.get('/user/newregistration',checkAuth,async (req,res)=>{
 
 //for the password varification code during registration of home
 
-router.post('/varification/user',checkAuth,async (req,res)=>{
+router.post('/varification/user',checkAuth.authUser,async (req,res)=>{
 
 
     let userauth = await req.isAurthised;

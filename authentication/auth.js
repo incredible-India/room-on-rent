@@ -43,21 +43,38 @@ const ownerInformationAndItsValidations =require('./../model/landlord');
 }
 
 
-// function ownerAuthentications(req,res,next)
-// {
-//     try{
+function ownerAuthentications(req,res,next)
+{
+    try{
 
-//         let OwnerInformation =ownerInformationAndItsValidations.fin
+        const token =   req.cookies.jwt ; //cookies
 
-//     }catch(error)
-//     {
-//         return res.json({
-//             message :"Owner Authentication Error in Auth File",
-//             error :error
-//         })
-//     }
+        if(token === undefined)
+        {
+            req.ownerAuth = null ;
+            next();
+            return; //agar ye return na likhe to next k baad bhi code excute hota
+        }
+      
+        const varifyUser =  jwt.verify(token, process.env.SECRET_KEY); //varify the cookies
+    
+        const ownerAuth = ownerInformationAndItsValidations.findOne({throughid : varifyUser._id})//it will check the user that exist in our database or not
+        
+        req.ownerAuth = ownerAuth; //it will return null if user is not in database otherwise it return document
+
+        next()
+
+     
+
+    }catch(error)
+    {
+        return res.json({
+            message :"Owner Authentication Error in Auth File",
+            error :error
+        })
+    }
 
 
-// }
+}
 
-module.exports = authUser ; 
+module.exports = {authUser,ownerAuthentications} ; 
