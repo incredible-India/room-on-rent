@@ -5,9 +5,10 @@ block title
 
 block style
     style
-        include ./assets/css/profile.css 
+        //- include ./assets/css/profile.css 
         include ./assets/css/nav.css
-        include ./assets/css/preview.css
+        //- include ./assets/css/preview.css
+        include ./assets/css/myhome.css
 
 block script
   script
@@ -95,6 +96,14 @@ block content
               button.btn.btn-outline-success(type="submit") Search
 
     
-    .conatiner-fluid 
+    .container-fluid.welcome 
+      .container 
+        img.imgowner.img-fluid(src="data:" + ownerinfo.landimg.ContentType + "; base64 ," + ownerinfo.landimg.data.toString('base64'), alt="owner Image" )
+      .container.ownername 
+        h1.display-5.ownerfname #{ownerinfo.fname + " " + ownerinfo.lname}
+
+    each val ,index  in imgofRooms
       
+      img.imgowner.img-fluid(src="data:" + val.ContentType + "; base64 ," + val.data.toString('base64'), alt="owner Image" )
+   
          

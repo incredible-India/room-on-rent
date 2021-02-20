@@ -455,23 +455,26 @@ router.post('/showpreview/:userid/:userData/:userimg/:usersign/:userdocs',Gallar
         let userdocs = JSON.parse(base64decode(req.params.userdocs));//owner document
         let roomgall = JSON.parse(base64decode(req.params.roomgall));//room gallary
 
-        let ABlankObjectToSaveImg ={};//in this we will save the room images i.e roomgall
+       
         let ABlankArrayToSaveImg = []; //in this we will save above object that contains room images
         
+      
 
-        for(i in roomgall)
+        for(i=0 ; i< roomgall.length ; i++)
         {
-           ABlankObjectToSaveImg.data = fs.readFileSync(path.join(__dirname,'./../' ,roomgall[i].path)); //images added in objects
-           ABlankObjectToSaveImg.ContentType = "image/jpg"; //imagesType added in object
-
-           ABlankArrayToSaveImg.push(ABlankObjectToSaveImg);//save the object in array which contains room images
+        //    
+            console.log(roomgall[i].size);
+            
+           ABlankArrayToSaveImg.push({size : roomgall[i].size,
+                                     ContentType : "image/jpg",
+                                     data : fs.readFileSync(path.join(__dirname,'./../' ,roomgall[i].path))})  //save the object in array which contains room images
+           
 
         
 
-            console.log(roomgall[i].path);
+            
         }
-
-        console.log(ABlankArrayToSaveImg);
+    
 
         //for the primary sequrity
         if(isAuthenticate)
@@ -600,6 +603,8 @@ router.post('/showpreview/:userid/:userData/:userimg/:usersign/:userdocs',Gallar
         let urlId = JSON.parse(base64decode(req.params.userid)) ;//this is the id of user
         
         let isOwner = await req.ownerAuth;//this will return whole document of owner
+        
+     
        
         if(isauthenticateduser)
         {
@@ -615,7 +620,11 @@ router.post('/showpreview/:userid/:userData/:userimg/:usersign/:userdocs',Gallar
                         
                         title : "My Home : The Rooms",
     
-                        allinfo : isauthenticateduser
+                        allinfo : isauthenticateduser, //userinformation
+
+                        ownerinfo : isOwner //owner information,
+
+                        ,imgofRooms : isOwner.homeimg[0].ABlankArrayToSaveImg //images of the rooms
                     })
                 }else
                 {

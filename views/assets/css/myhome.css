@@ -1,0 +1,59 @@
+/* @font-face {
+
+    src: url('./../../../src/fonts/sc.ttf');
+    font-family: sc;
+}
+.welcome {
+
+
+    font-family: sc;
+    margin-top: 16px;
+   
+
+}
+
+.therooms {
+    font-family: sc;
+    letter-spacing: 4px;
+    font-weight: 600;
+    font-size: 3em;
+}
+
+.rooms{
+    color: blue;
+} */
+
+.welcome{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 16px;
+}
+.imgowner{
+    width: 300px;
+    height:300px;
+    border-radius: 50%;
+    text-align: center;
+    margin-left: 8px;
+
+}
+
+
+.onwerfname{
+    letter-spacing: 3px;
+    text-transform: capitalize;
+}
+
+@media (max-width : 320px){
+    .imgowner{
+        width: 200px;
+        height:200px;
+        border-radius: 50%;
+    
+    }
+
+    .onwerfname{
+        text-align: center;
+    }
+}

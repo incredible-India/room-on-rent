@@ -251,7 +251,7 @@ router.get('/userProfile/:id',checkAuth.authUser ,async (req,res) =>{
    await newUserdbs.findOneAndUpdate({_id : UserAuth._id},{service : UserAuth.service}) //And we will Update and save it 
 
     // newUserdbs.save() ;  
-
+   
     if(UserAuth)
     {
          res.status(200).render('profile',{
