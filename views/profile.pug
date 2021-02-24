@@ -180,7 +180,7 @@ block content
             button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
           .modal-body
 
-            form(action="#", method="post") 
+            form(action=`/therooms/roomsregistration/showMyrooms/${UserId}/allinfo`, method="post") 
               input.form-control(type="password",placeholder="password")
               button.btn.btn-success(value="submit") View
           

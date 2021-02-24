@@ -12,6 +12,7 @@ const cookieParser = require('cookie-parser');//saving the cookies
 const bcryptjs = require('bcryptjs');//for hashing the password and comparing the password
 const checkAuth = require('./../authentication/auth');//authentication for the user
 const ownerinfo = require('./../model/landlord');//owner Scema File
+const {base64encode} =require('nodejs-base64');//this is for the bcrypting or encoding the importatnt data
 
 
 
@@ -238,7 +239,17 @@ router.get('/userProfile/:id',checkAuth.authUser ,async (req,res) =>{
  
     let UserAuth = await req.isAurthised;  //it will return either document of user or null
 
-    let givenSirvices = await  ownerinfo.findOne({throughid : UserAuth._id}) //first we will find and verify the user  that owner is exist or not
+    try
+    {
+       var  givenSirvices = await  ownerinfo.findOne({throughid : UserAuth._id}) //first we will find and verify the user  that owner is exist or not
+    }catch (error)
+    {
+        return res.status(200).redirect('/therooms/login')
+    }
+  
+  
+    
+   
    
     if(givenSirvices == null)
     {
@@ -258,6 +269,8 @@ router.get('/userProfile/:id',checkAuth.authUser ,async (req,res) =>{
              title : "Profile -The Rooms",
             
              allinfo : UserAuth
+            ,
+             UserId : base64encode(JSON.stringify(UserAuth._id)) //this is the database id of the room
          })
     }
     else

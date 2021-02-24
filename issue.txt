@@ -7,3 +7,4 @@ solution url me kuch random sa string daalna hai
 4:email make unique in ladlord schema
 5:we already genrated a token in the owner database when we will use owner sign in optioon than we will use it
 6:Adding a button of terms and conditon while clicking finnal submission
+7:profile page wale userid ko encode krna hai
