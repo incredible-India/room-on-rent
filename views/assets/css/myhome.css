@@ -1,8 +1,10 @@
-/* @font-face {
+ @font-face {
 
     src: url('./../../../src/fonts/sc.ttf');
     font-family: sc;
 }
+
+/*
 .welcome {
 
 
@@ -36,16 +38,32 @@
     border-radius: 50%;
     text-align: center;
     margin-left: 8px;
+    box-shadow: 0 0 5px ,0 0 10px;
 
 }
 
-
+.ownerspic{
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+.ownername{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: capitalize;
+}
 .onwerfname{
     letter-spacing: 3px;
     text-transform: capitalize;
+    font-weight: 600;
 }
 
-@media (max-width : 320px){
+
+
+@media (max-width : 400px){
     .imgowner{
         width: 200px;
         height:200px;
@@ -56,4 +74,16 @@
     .onwerfname{
         text-align: center;
     }
+
+
+}
+
+
+th{
+    text-transform: capitalize;
+}
+
+
+#mail{
+    text-transform: lowercase;
 }

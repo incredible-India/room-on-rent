@@ -13,7 +13,7 @@ const {base64decode ,base64encode} = require('nodejs-base64');//this will encode
 // const { json } = require('body-parser');
 const roomInfomration = require('./../model/landlord');//this is the informations of owner 
 const userinfomation = require('./../model/newUser'); //this is the database of users 
-const jwt = require('jsonwebtoken');//for saving the cookies web token
+const jwt = require('jsonwebtoken');//for saving the cookies web token we still did not use it latar for the user login we w
 
 // const { JsonWebTokenError } = require('jsonwebtoken');
 

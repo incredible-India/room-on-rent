@@ -13,6 +13,12 @@ block style
 block script
   script
     include ./assets/javascript/profile.js
+  script 
+    include ./assets/javascript/myhome.js
+
+
+
+
 
 block content
 
@@ -96,14 +102,126 @@ block content
               button.btn.btn-outline-success(type="submit") Search
 
     
-    .container-fluid.welcome 
-      .container 
-        img.imgowner.img-fluid(src="data:" + ownerinfo.landimg.ContentType + "; base64 ," + ownerinfo.landimg.data.toString('base64'), alt="owner Image" )
+    .container.welcome 
+      .container.ownerspic 
+         img.imgowner.img-fluid(src="data:" + allinfo.img.ContentType + "; base64 ," + allinfo.img.data.toString('base64'), alt="User image" )
       .container.ownername 
-        h1.display-5.ownerfname #{ownerinfo.fname + " " + ownerinfo.lname}
+        h1.display-5.ownerfname #{allinfo.fname + " " + allinfo.lname}
 
-    each val ,index  in imgofRooms
+
+
+    
+    .container-fluid 
+ 
+      table.table.table-dark
+        thead
+          tr
+           
+            th(scope='col' colspan="4") The Rooms
+            //- th(scope='col') First
+            //- th(scope='col') Last
+            //- th(scope='col') Handle
+        tbody.table-dark
+          tr.table-dark
+            td(scope='row') First Name
+            th #{ownerinfo.fname}
+            td Last Name
+            th #{ownerinfo.lname}
+          tr
+            td(scope='row') Father`s Name
+            th #{ownerinfo.fathername}
+            td Email
+            th#mail #{ownerinfo.email}
+          tr
+            td(scope='row') Mobile
+            th #{ownerinfo.mobile}
+            td Alternet Mobile
+            th #{ownerinfo.altermobile}
+
+          tr
+            td(scope='row') Gender
+            th #{ownerinfo.gender}
+            td(scope='row') Room Name
+            th #{ownerinfo.roomname}
+          tr
+            td(scope='row') State
+            th #{ownerinfo.state}
+            td City
+            th #{ownerinfo.city}
+          tr
+            td(scope='row') Village
+            th #{ownerinfo.village}
+            td Zip
+            th #{ownerinfo.zip}
+          tr
+            td(scope='row') Address
+            th(colspan="3") #{ownerinfo.address}
+            //- td Zip
+            //- th #{ownerinfo.zip}
+          tr
+            td(scope='row') Room For
+            th #{ownerinfo.roomfor}
+            td Room Type
+            th #{ownerinfo.roomtype}
+          tr
+            td(scope='row') Kitchen
+            th #{ownerinfo.kitchen}
+            td Washroom
+            th #{ownerinfo.washroom}
+          tr
+            td(scope='row') Person Type
+            th #{ownerinfo.persontype}
+            td(scope='row') Electricity Bill
+            th #{ownerinfo.electricbill}
+          tr
+            td(scope='row') Room Facilities
+            th(colspan="3") #{ownerinfo.roomfacility}
+          tr
+            td(scope='row') Room Id
+            th #{ownerinfo.throughid}
+            td(scope='row') Return Advance
+            th #{ownerinfo.returndwnpayment}
+          tr
+            td(scope='row') Room Restrictions
+            th(colspan="3") #{ownerinfo.restriction}
+          tr
+            td(scope='row') Room Rent
+            th #{ownerinfo.roomrent}
+            td(scope='row') Advance
+            th #{ownerinfo.downpayment}
+          tr
+            td(scope='row') Rent Information
+            th(colspan="3") #{ownerinfo.anyotherinforent}
+          tr
+            td(scope='row') Room Informations
+            th(colspan="3") #{ownerinfo.anyotherinforoom}
+          tr
+            td(scope='row') D.O.B
+            th(colspan="3") #{ownerinfo.dob}
+
+          tr 
+            td(scope="row") Date Of Registration
+            th(colspan="3") #{ownerinfo.dateofrgisteration}
+          
+            
+
+    
+
+
+
+
+
+
+
+    
+
+        
+    //- .roomgaal.container 
+
+    //-   each val ,index  in imgofRooms
       
-      img.imgowner.img-fluid(src="data:" + val.ContentType + "; base64 ," + val.data.toString('base64'), alt="owner Image" )
+    //-     img.roomspics(src="data:" + val.ContentType + "; base64 ," + val.data.toString('base64'), alt="owner Image" )
+
+
    
          
