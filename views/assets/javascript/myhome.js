@@ -3,23 +3,53 @@ let th =document.getElementsByTagName('th');
 
 let td =document.getElementsByTagName('td');
 
-console.log(th);
 
-Array.from(td).forEach(element =>{
 
-    element.addEventListener('mousemove',(event)=>{
+Array.from(td).forEach(element =>{//this generate hover effect and change the color of table data
 
-        event.className ="table-info"
-        console.log(event);
+    element.addEventListener('mouseleave',(event)=>{
+
+        element.className ="table-dark"
+
+
+    })
+})
+
+Array.from(th).forEach(element =>{  //this generate hover effect and change the color of table heading
+
+    element.addEventListener('mouseleave',(event)=>{
+
+        element.className ="table-dark"
 
     })
 })
 
-Array.from(th).forEach(element =>{
 
-    element.addEventListener('mousemove',(event)=>{
+Array.from(td).forEach(element =>{//this generate hover effect and change the color of table data
 
-        element.className ="table-warning"
+    element.addEventListener('mouseover',(event)=>{
+      
+        element.className ="table-info"
 
     })
 })
+
+
+
+Array.from(th).forEach(element =>{ //this generate hover effect and change the color of table data
+
+    element.addEventListener('mouseover',(event)=>{
+   
+        element.className ="table-success"
+
+    })
+})
+
+// Array.from(th).forEach(element =>{//this generate hover effect and change the color of table heading
+
+//     element.addEventListener('mouseout',(event)=>{
+
+//         element.className ="table-success"
+
+//     })
+// })

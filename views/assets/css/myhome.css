@@ -87,3 +87,39 @@ th{
 #mail{
     text-transform: lowercase;
 }
+
+
+.ownerpic {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.nameofhim{
+    width: 100%;
+    text-align: center;
+}
+
+.malikkaphoto{
+    width: 200px;
+    height: 200px;
+    box-shadow: 0 0 3px , 0 0 5px, 0 0 7px;
+}
+
+.malikkaphotos{
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.buttonss {
+    display:flex;
+ flex-direction: row;
+ justify-content:space-around;
+ align-items: center;
+ margin: 6px;
+}
