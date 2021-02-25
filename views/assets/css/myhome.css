@@ -123,3 +123,12 @@ th{
  align-items: center;
  margin: 6px;
 }
+
+
+th{
+    transition: 0.2s;
+}
+
+td{
+    transition: 0.2s;
+}
