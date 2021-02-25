@@ -36,7 +36,7 @@ Array.from(document.getElementsByTagName('input')).forEach(ele =>{ //IT WILL GIV
 Array.from(document.getElementsByTagName('textarea')).forEach(ele =>{ //IT WILL GIVE THE WARNING TO THE USER IF Textarea FIELD WILL BE BLANK
 
     ele.addEventListener('focusout',()=>{
-        if(ele.value == "")
+        if(ele.value == "" && ele.type != 'checkbox')
         {
             ele.className = "form-control is-invalid"
         }else
@@ -76,3 +76,43 @@ else
 
 }
 
+let zip = document.getElementById('zip');//tells the zip code input tag
+let city = document.getElementById('city');//tells the city input tag
+let villege =document.getElementById('village');
+let states =document.getElementsByClassName('states')[0];
+let address =document.getElementById('address');
+
+if(navigator.onLine)//first we will check user is online or not
+{
+    zip.addEventListener('focusout',(event)=>{
+        if(zip.value == "")
+        {
+            return ;
+        }else
+        {
+            try {
+                
+                fetch(`https://api.postalpincode.in/pincode/${zip.value}`)
+                .then(data =>{
+                    return data.json()
+                }).then (finaldata =>{
+
+                    console.log(finaldata);
+
+                    states.value = finaldata[0].PostOffice[0].State
+                    villege.value = finaldata[0].PostOffice[0].Name
+                    city.value = finaldata[0].PostOffice[0].District
+                    address.value = finaldata[0].PostOffice[0].Name +" " +finaldata[0].PostOffice[0].District + " " + zip.value +" " +finaldata[0].PostOffice[0].State 
+
+
+
+                }).catch(error=>{
+                    alert("incorrect zip")
+                })
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    })
+}

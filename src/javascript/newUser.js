@@ -84,3 +84,33 @@ element.addEventListener('click',()=>{
 
 
 
+
+
+if(navigator.onLine) //First we will check either user is online or not
+{
+    try{
+
+        zip.addEventListener('focusout',(event)=>{ //we set a event listner
+
+            if(zip.value == "")
+            {
+                return ;
+            }else
+            {
+                fetch(`https://api.postalpincode.in/pincode/${zip.value}`).then( data => {
+                    return data.json()
+                }).then(finalCity =>{
+                //    console.log(finalCity[0]);
+                    document.getElementsByClassName('city')[0].value = finalCity[0].PostOffice[0].Block
+                }).catch(error =>{
+                    alert('incorrect Zip Code')
+                })
+            }
+
+       
+
+        })
+    }catch(error){
+        console.log(error);
+    }
+}

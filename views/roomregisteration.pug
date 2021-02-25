@@ -239,7 +239,7 @@ block content
 
           .col-md-6
             label.form-label(for='exampleDataList') State
-            input#exampleDataList.form-control(list='datalistOptions' placeholder='Type to search...' name="state" required)
+            input#exampleDataList.form-control.states(list='datalistOptions' placeholder='Type to search...' name="state" required)
             datalist#datalistOptions
               
               //- option(value='San Francisco')
@@ -253,7 +253,10 @@ block content
               | please provide the state
 
           .col-md-6
-            label(for="village") Village
+
+           
+
+            label(for="village") Village/Street
             input.form-control(type="text" id="village" name="village" required)
             .valid-feedback
               | Looks Good
